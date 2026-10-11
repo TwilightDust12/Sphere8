@@ -1,0 +1,11 @@
+{
+  "description": "Sphere8 Construction Corp. provides architectural and engineering design, construction, and project management from Lucena City, Philippines.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  },
+  "title": "Sphere8 Construction Corp. | Design & Build"
+}
