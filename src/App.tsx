@@ -1,8 +1,10 @@
 import Header from "./components/Header"
 import Hero from "./components/Hero"
+import Process from "./components/Process"
 import ProofStrip from "./components/ProofStrip"
 import Projects from "./components/Projects"
 import Services from "./components/Services"
+import Team from "./components/Team"
 
 export default function App() {
   return (
@@ -16,6 +18,8 @@ export default function App() {
         <ProofStrip />
         <Services />
         <Projects />
+        <Process />
+        <Team />
       </main>
     </>
   )
