@@ -165,3 +165,11 @@ Excluded: all certificate, permit and profile-slide images.
 ## 9. Delivery
 
 Work proceeds on `redesign/site-plan` with one commit per block of work. `assets/` is never staged. After this spec is reviewed, a written implementation plan follows (writing-plans), then implementation.
+
+## 10. Implementation amendments (2026-10-12)
+
+1. Fonts are vendored as WOFF2 files in `public/fonts/` (with their OFL licences) instead of installed `@fontsource` packages, because `pnpm` is unavailable in the working shell and `npm` would rewrite the pnpm lockfile. Self-hosting and the font choices are unchanged.
+2. The nav's "About" anchors to the proof-strip block, which carries the existing headline "Solid foundations. Shared ambitions." and one sentence above the four ruled cells.
+3. The gallery has 26 tiles: 25 photos plus one placeholder tile for the Magallanes residence. Full-size WebP totals about 3.9 MB; photos wider than 800px also get an 800px variant for phones.
+4. Pure logic (inquiry validation, gallery filtering, copy scan) is tested with Node's built-in `node --test`, adding no dependency.
+5. The "Proposed" status tag is shown only on the two pure renders (dormitory, National Defense College).
