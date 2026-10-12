@@ -114,11 +114,15 @@ export default function Contact() {
         >
           Let’s build what’s <span>next.</span>
         </h2>
+        <p className="contact-intro reveal-item" style={stagger(1)}>
+          Tell us about your lot, your building or your idea. We will get back
+          to you by phone or email.
+        </p>
 
         <div className="contact-grid">
           <form
             className="inquiry reveal-item"
-            style={stagger(1)}
+            style={stagger(2)}
             onSubmit={onSubmit}
             noValidate
           >
@@ -228,7 +232,7 @@ export default function Contact() {
             )}
           </form>
 
-          <div className="contact-info reveal-item" style={stagger(2)}>
+          <div className="contact-info reveal-item" style={stagger(3)}>
             <span className="c-label mono">Email</span>
             {company.emails.map((email) => (
               <a className="c-link" href={`mailto:${email}`} key={email}>

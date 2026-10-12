@@ -8,7 +8,7 @@ export default function Process() {
     <section id="process" className="process" aria-labelledby="process-title">
       <div className="wrap reveal-scope" ref={ref}>
         <h2 id="process-title" className="big reveal-item" style={stagger(0)}>
-          A clear <span>path forward.</span>
+          How we <span>work with you.</span>
         </h2>
         <ol className="steps">
           {steps.map((step, index) => (

@@ -2,6 +2,7 @@ import test from "node:test"
 import assert from "node:assert/strict"
 import { existsSync } from "node:fs"
 import {
+  FEATURED_COUNT,
   countByFilter,
   filterPhotos,
   filters,
@@ -77,5 +78,30 @@ test("rendered images outside the design group are marked as renders or proposal
   assert.deepEqual(
     unmarked.map((p) => p.id),
     [],
+  )
+})
+
+test("the featured set covers every group and has no placeholder tiles", () => {
+  const featured = photos.slice(0, FEATURED_COUNT)
+  assert.equal(featured.length, FEATURED_COUNT)
+  for (const key of [
+    "construction",
+    "interiors",
+    "engineering",
+    "design",
+  ] as const) {
+    assert.ok(
+      filterPhotos(featured, key).length > 0,
+      `${key} is missing from the featured set`,
+    )
+  }
+  assert.equal(photos.filter((p) => p.placeholder).length, 0)
+})
+
+test("the featured count fills whole rows of the mosaic", () => {
+  // the mosaic repeats a cycle of 5 tiles: two wide, then three narrow
+  assert.ok(
+    [0, 2].includes(FEATURED_COUNT % 5),
+    `featured count ${FEATURED_COUNT} leaves a partial row`,
   )
 })

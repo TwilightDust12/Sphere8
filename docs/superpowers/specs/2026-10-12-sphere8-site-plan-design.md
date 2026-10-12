@@ -174,3 +174,10 @@ Work proceeds on `redesign/site-plan` with one commit per block of work. `assets
 3. The gallery has 26 tiles: 25 photos plus one placeholder tile for the Magallanes residence. Full-size WebP totals about 3.9 MB; photos wider than 800px also get an 800px variant for phones.
 4. Pure logic (inquiry validation, gallery filtering, copy scan) is tested with Node's built-in `node --test`, adding no dependency.
 5. The "Proposed" status tag is shown only on the two pure renders (dormitory, National Defense College).
+
+## 11. Critique fixes (branch redesign/critique-fixes)
+
+1. Phones and tablets (1024px and below) get a fixed bottom bar with "Call us" and "Start a project", because the header CTA is hidden at those widths. Contact, social and "See related work" links are at least 44px tall.
+2. The gallery shows a curated set of 12 by default (`FEATURED_COUNT`), strongest first and covering every group, with "Show all 25 projects". The mosaic uses a 5-tile cycle (two wide, three narrow) so tiles in a row share one height. The Magallanes placeholder tile is removed from the public gallery; the project stays in the experience list.
+3. Headlines now name place and work in a warmer voice, using only facts from the company profile: the hero line, "Based in Lucena. Working across the region.", "Houses to warehouses. Same detail.", "How we work with you.", and a one-sentence invitation above the form.
+4. Smallest text raised to 10 to 12px.

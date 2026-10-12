@@ -8,11 +8,12 @@ export default function ProofStrip() {
     <section id="about" className="about" aria-labelledby="about-title">
       <div className="wrap reveal-scope" ref={ref}>
         <h2 id="about-title" className="big reveal-item" style={stagger(0)}>
-          Solid foundations. <span>Shared ambitions.</span>
+          Based in Lucena. <span>Working across the region.</span>
         </h2>
         <p className="lead reveal-item" style={stagger(1)}>
-          We are Sphere8 Construction Corp., a design-and-build company with a
-          personal approach to every project.
+          We are Sphere8 Construction Corp., a design-and-build company in
+          Lucena City. Our one-on-one approach keeps your vision at the center
+          of every project.
         </p>
         <ul className="proof">
           {proof.map((item, index) => (

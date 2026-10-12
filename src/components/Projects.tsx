@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react"
 import {
+  FEATURED_COUNT,
   countByFilter,
   filterPhotos,
   filters,
@@ -70,14 +71,17 @@ export default function Projects() {
   const [filter, setFilter] = useState<FilterKey>("all")
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [moreOpen, setMoreOpen] = useState(false)
+  const [showAll, setShowAll] = useState(false)
   const ref = useReveal<HTMLDivElement>()
 
   const counts = useMemo(() => countByFilter(photos), [])
   const visible = useMemo(() => filterPhotos(photos, filter), [filter])
-  const viewable = useMemo(
-    () => visible.filter((p) => !p.placeholder),
-    [visible],
+  const limited = filter === "all" && !showAll
+  const shown = useMemo(
+    () => (limited ? visible.slice(0, FEATURED_COUNT) : visible),
+    [limited, visible],
   )
+  const viewable = useMemo(() => shown.filter((p) => !p.placeholder), [shown])
 
   return (
     <section
@@ -87,7 +91,7 @@ export default function Projects() {
     >
       <div className="wrap reveal-scope" ref={ref}>
         <h2 id="projects-title" className="big reveal-item" style={stagger(0)}>
-          Different scales. <span>Same detail.</span>
+          Houses to warehouses. <span>Same detail.</span>
         </h2>
         <p className="projects-intro reveal-item" style={stagger(1)}>
           Built, engineered and designed work from our company profile.
@@ -108,7 +112,9 @@ export default function Projects() {
             ))}
           </div>
           <span className="mono" aria-live="polite">
-            {String(visible.length).padStart(2, "0")} shown
+            {limited
+              ? `${String(shown.length).padStart(2, "0")} of ${String(visible.length).padStart(2, "0")} shown`
+              : `${String(visible.length).padStart(2, "0")} shown`}
           </span>
         </div>
 
@@ -118,8 +124,8 @@ export default function Projects() {
             projects.
           </p>
         ) : (
-          <div className="mosaic">
-            {visible.map((photo) => (
+          <div className="mosaic" id="project-mosaic">
+            {shown.map((photo) => (
               <Tile
                 key={photo.id}
                 photo={photo}
@@ -129,6 +135,18 @@ export default function Projects() {
               />
             ))}
           </div>
+        )}
+
+        {filter === "all" && visible.length > FEATURED_COUNT && (
+          <button
+            type="button"
+            className="btn btn-dark show-all"
+            aria-expanded={showAll}
+            aria-controls="project-mosaic"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll ? "Show fewer" : `Show all ${visible.length} projects`}
+          </button>
         )}
 
         <div className="more">

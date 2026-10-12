@@ -2,6 +2,7 @@ import Contact from "./components/Contact"
 import Footer from "./components/Footer"
 import Header from "./components/Header"
 import Hero from "./components/Hero"
+import MobileBar from "./components/MobileBar"
 import Process from "./components/Process"
 import ProofStrip from "./components/ProofStrip"
 import Projects from "./components/Projects"
@@ -25,6 +26,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <MobileBar />
     </>
   )
 }

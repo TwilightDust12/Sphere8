@@ -11,8 +11,8 @@ export default function Hero() {
           </h1>
           <div className="hero-lower">
             <p>
-              Architecture, engineering and construction under one roof, from
-              first drawing to final detail.
+              We design, engineer and build houses, warehouses and fit-outs,
+              from Lucena City to Laguna, Bulacan and Metro Manila.
             </p>
             <div className="hero-actions">
               <a className="btn btn-dark" href="#contact">
