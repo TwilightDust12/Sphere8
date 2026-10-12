@@ -50,12 +50,14 @@ export default function Header() {
         aria-label="Mobile navigation"
         hidden={!open}
       >
-        {[...links, ["Start a project", "#contact"] as const].map(([label, href]) => (
-          <a key={href} href={href} onClick={() => setOpen(false)}>
-            {label}
-            <Arrow diagonal />
-          </a>
-        ))}
+        {[...links, ["Start a project", "#contact"] as const].map(
+          ([label, href]) => (
+            <a key={href} href={href} onClick={() => setOpen(false)}>
+              {label}
+              <Arrow diagonal />
+            </a>
+          ),
+        )}
       </nav>
     </header>
   )

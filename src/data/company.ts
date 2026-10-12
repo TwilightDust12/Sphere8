@@ -82,7 +82,10 @@ export const team = {
   visible: false,
   members: [
     { name: "Engr. Farly D. Vergel", title: "President" },
-    { name: "Ar. Donica Elden D. Reyes", title: "Vice President, Administration & Design" },
+    {
+      name: "Ar. Donica Elden D. Reyes",
+      title: "Vice President, Administration & Design",
+    },
     { name: "Engr. Pedro Reyes", title: "Vice President, Marketing" },
   ],
 }

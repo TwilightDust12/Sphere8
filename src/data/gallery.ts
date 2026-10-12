@@ -1,16 +1,10 @@
-export type RoleKey =
-  | "construction"
-  | "subcontract"
-  | "engineering"
-  | "fitout"
-  | "interior"
-  | "design"
+export type RoleKey = "construction" | "subcontract" | "engineering" | "fitout" | "interior" | "design"
 export type FilterKey = "all" | "construction" | "interiors" | "engineering" | "design"
 
-export const roles: Record<
-  RoleKey,
-  { label: string; filter: Exclude<FilterKey, "all"> }
-> = {
+export const roles: Record<RoleKey, {
+  label: string
+  filter: Exclude<FilterKey, "all">
+}> = {
   construction: { label: "Construction contract", filter: "construction" },
   subcontract: { label: "Sub-contract works", filter: "construction" },
   engineering: {
@@ -22,7 +16,12 @@ export const roles: Record<
   design: { label: "Architectural and engineering design", filter: "design" },
 }
 
-export const filters: { key: FilterKey; label: string }[] = [
+export interface FilterOption {
+  key: FilterKey
+  label: string
+}
+
+export const filters: FilterOption[] = [
   { key: "all", label: "All" },
   { key: "construction", label: "Construction" },
   { key: "interiors", label: "Interiors" },
@@ -151,7 +150,8 @@ export const photos: Photo[] = [
     role: "engineering",
     label: "Engineering design",
     location: "Camp Gen. Emilio Aguinaldo, Quezon City",
-    discipline: "Structural, electrical, mechanical, fire protection and plumbing design",
+    discipline:
+      "Structural, electrical, mechanical, fire protection and plumbing design",
     status: "Proposed",
   },
   {
@@ -195,7 +195,8 @@ export const photos: Photo[] = [
     role: "engineering",
     label: "Engineering design",
     location: "Camp Gen. Emilio Aguinaldo, Quezon City",
-    discipline: "Structural, electrical, mechanical, fire protection and plumbing design",
+    discipline:
+      "Structural, electrical, mechanical, fire protection and plumbing design",
     status: "Proposed",
   },
   {

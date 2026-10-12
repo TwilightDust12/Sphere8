@@ -9,7 +9,12 @@ interface LightboxProps {
   onIndexChange: (index: number) => void
 }
 
-export default function Lightbox({ photos, index, onClose, onIndexChange }: LightboxProps) {
+export default function Lightbox({
+  photos,
+  index,
+  onClose,
+  onIndexChange,
+}: LightboxProps) {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const touchStart = useRef<number | null>(null)
   const isOpen = index !== null
@@ -77,10 +82,18 @@ export default function Lightbox({ photos, index, onClose, onIndexChange }: Ligh
             <div className="lightbox-buttons">
               {photos.length > 1 && (
                 <>
-                  <button type="button" className="btn btn-ghost" onClick={() => step(-1)}>
+                  <button
+                    type="button"
+                    className="btn btn-ghost"
+                    onClick={() => step(-1)}
+                  >
                     Previous
                   </button>
-                  <button type="button" className="btn btn-ghost" onClick={() => step(1)}>
+                  <button
+                    type="button"
+                    className="btn btn-ghost"
+                    onClick={() => step(1)}
+                  >
                     Next
                   </button>
                 </>

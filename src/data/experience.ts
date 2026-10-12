@@ -88,24 +88,41 @@ export const experienceGroups: ExperienceGroup[] = [
         place: "Concepcion St., Buli, Muntinlupa City",
         note: "Contractor: Building Blocks Construction Corp.",
       },
-      { name: "5-Storey Apartment with Penthouse", place: "Sta. Clara St., City of Manila" },
+      {
+        name: "5-Storey Apartment with Penthouse",
+        place: "Sta. Clara St., City of Manila",
+      },
       {
         name: "MCVI Warehouse with Office",
         place: "Brgy. Bancal, Meycauayan City, Bulacan",
         note: "Mandarin Credit Ventures, Inc.",
       },
       { name: "CW Home Depot Warehouse", place: "GT Natural, Ortigas Center" },
-      { name: "3-Storey Magallanes Residence", place: "Magallanes Village, Makati City" },
+      {
+        name: "3-Storey Magallanes Residence",
+        place: "Magallanes Village, Makati City",
+      },
       {
         name: "AISAT Fairview Campus, 4-storey school building",
         place: "Quezon City",
         note: "JMAX Builders",
       },
       { name: "Revision design of a 2-storey commercial building" },
-      { name: "Theresa M-48 Townhouse, 11 units, 2-storey", note: "JMAX Builders" },
+      {
+        name: "Theresa M-48 Townhouse, 11 units, 2-storey",
+        note: "JMAX Builders",
+      },
       { name: "Frenza Commercial, one-storey", note: "JMAX Builders" },
-      { name: "Gantuanco Residence", place: "Quezon City", note: "JMAX Builders" },
-      { name: "Tamonte Residence", place: "Parañaque City", note: "JMAX Builders" },
+      {
+        name: "Gantuanco Residence",
+        place: "Quezon City",
+        note: "JMAX Builders",
+      },
+      {
+        name: "Tamonte Residence",
+        place: "Parañaque City",
+        note: "JMAX Builders",
+      },
       { name: "150 sq.m. Mechanical Deck, steel structure" },
       {
         name: "Two-Storey Residence",

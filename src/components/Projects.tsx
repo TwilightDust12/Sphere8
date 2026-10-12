@@ -14,7 +14,12 @@ import { photoSrcSet, photoUrl } from "../lib/assets"
 import Lightbox from "./Lightbox"
 import Placeholder from "./Placeholder"
 
-function Tile({ photo, onOpen }: { photo: Photo; onOpen: () => void }) {
+interface TileProps {
+  photo: Photo
+  onOpen: () => void
+}
+
+function Tile({ photo, onOpen }: TileProps) {
   const [failed, setFailed] = useState(false)
   const hasImage = !photo.placeholder && !failed
 
@@ -51,7 +56,9 @@ function Tile({ photo, onOpen }: { photo: Photo; onOpen: () => void }) {
         </span>
         <strong>{photo.title}</strong>
         {photo.location && <span className="tile-line">{photo.location}</span>}
-        {photo.discipline && <span className="tile-line">{photo.discipline}</span>}
+        {photo.discipline && (
+          <span className="tile-line">{photo.discipline}</span>
+        )}
         {photo.credit && <span className="tile-line">{photo.credit}</span>}
       </figcaption>
     </figure>
@@ -66,10 +73,17 @@ export default function Projects() {
 
   const counts = useMemo(() => countByFilter(photos), [])
   const visible = useMemo(() => filterPhotos(photos, filter), [filter])
-  const viewable = useMemo(() => visible.filter((p) => !p.placeholder), [visible])
+  const viewable = useMemo(
+    () => visible.filter((p) => !p.placeholder),
+    [visible],
+  )
 
   return (
-    <section id="projects" className="projects" aria-labelledby="projects-title">
+    <section
+      id="projects"
+      className="projects"
+      aria-labelledby="projects-title"
+    >
       <div className="wrap reveal" ref={ref}>
         <h2 id="projects-title" className="big">
           Different scales. <span>Same detail.</span>
@@ -99,7 +113,8 @@ export default function Projects() {
 
         {visible.length === 0 ? (
           <p className="empty">
-            No projects in this group yet. Choose another group or see all projects.
+            No projects in this group yet. Choose another group or see all
+            projects.
           </p>
         ) : (
           <div className="mosaic">
@@ -107,7 +122,9 @@ export default function Projects() {
               <Tile
                 key={photo.id}
                 photo={photo}
-                onOpen={() => setOpenIndex(viewable.findIndex((p) => p.id === photo.id))}
+                onOpen={() =>
+                  setOpenIndex(viewable.findIndex((p) => p.id === photo.id))
+                }
               />
             ))}
           </div>
@@ -125,8 +142,8 @@ export default function Projects() {
           </button>
           <div id="additional-projects" hidden={!moreOpen}>
             <p className="more-note">
-              Listed in our company profile. Where another contractor or architect is
-              credited, our role was design or engineering.
+              Listed in our company profile. Where another contractor or
+              architect is credited, our role was design or engineering.
             </p>
             {experienceGroups.map((group) => (
               <div className="more-group" key={group.heading}>
@@ -135,7 +152,9 @@ export default function Projects() {
                   {group.items.map((item) => (
                     <li key={`${group.heading}-${item.name}`}>
                       <span>{item.name}</span>
-                      <span>{[item.place, item.note].filter(Boolean).join(". ")}</span>
+                      <span>
+                        {[item.place, item.note].filter(Boolean).join(". ")}
+                      </span>
                     </li>
                   ))}
                 </ul>

@@ -15,7 +15,12 @@ export default function Footer() {
           <a href="#about">About</a>
           <a href="#projects">Projects</a>
           {company.socials.map((social) => (
-            <a key={social.href} href={social.href} target="_blank" rel="noopener noreferrer">
+            <a
+              key={social.href}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {social.label}
             </a>
           ))}

@@ -19,7 +19,13 @@ import {
 import { useReveal } from "../hooks/useReveal"
 import Arrow from "./Arrow"
 
-const fieldOrder: InquiryField[] = ["name", "phone", "email", "projectType", "details"]
+const fieldOrder: InquiryField[] = [
+  "name",
+  "phone",
+  "email",
+  "projectType",
+  "details",
+]
 
 function Field({
   id,
@@ -60,13 +66,16 @@ export default function Contact() {
 
   const update =
     (key: keyof Inquiry) =>
-    (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    (
+      event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    ) => {
       setValues((current) => ({ ...current, [key]: event.target.value }))
       setComposed(false)
       setCopied(false)
     }
 
-  const describe = (key: InquiryField) => (errors[key] ? `inq-${key}-error` : undefined)
+  const describe = (key: InquiryField) =>
+    errors[key] ? `inq-${key}-error` : undefined
 
   const onSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -91,7 +100,11 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="contact on-dark" aria-labelledby="contact-title">
+    <section
+      id="contact"
+      className="contact on-dark"
+      aria-labelledby="contact-title"
+    >
       <div className="wrap reveal" ref={ref}>
         <h2 id="contact-title" className="big contact-title">
           Let’s build what’s <span>next.</span>
@@ -133,7 +146,11 @@ export default function Contact() {
                 aria-describedby={describe("email")}
               />
             </Field>
-            <Field id="inq-projectType" label="Project type" error={errors.projectType}>
+            <Field
+              id="inq-projectType"
+              label="Project type"
+              error={errors.projectType}
+            >
               <select
                 id="inq-projectType"
                 value={values.projectType}
@@ -158,7 +175,11 @@ export default function Contact() {
                 onChange={update("location")}
               />
             </Field>
-            <Field id="inq-details" label="Tell us about the project" error={errors.details}>
+            <Field
+              id="inq-details"
+              label="Tell us about the project"
+              error={errors.details}
+            >
               <textarea
                 id="inq-details"
                 rows={5}
@@ -175,9 +196,9 @@ export default function Contact() {
             {composed && (
               <div className="composed" role="status">
                 <p>
-                  Your email app should open with this message ready to send. If it
-                  did not, copy the message and email it to {company.emails[0]}, or
-                  call {company.phones[0].label}.
+                  Your email app should open with this message ready to send. If
+                  it did not, copy the message and email it to{" "}
+                  {company.emails[0]}, or call {company.phones[0].label}.
                 </p>
                 <textarea
                   ref={messageRef}
@@ -186,7 +207,11 @@ export default function Contact() {
                   value={buildMessage(values)}
                   aria-label="Your message"
                 />
-                <button type="button" className="btn btn-ghost" onClick={copyMessage}>
+                <button
+                  type="button"
+                  className="btn btn-ghost"
+                  onClick={copyMessage}
+                >
                   {copied ? "Copied" : "Copy message"}
                 </button>
               </div>

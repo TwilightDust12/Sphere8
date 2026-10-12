@@ -44,9 +44,11 @@ export function validateInquiry(input: Inquiry): InquiryErrors {
   if (email && !emailPattern.test(email)) {
     errors.email = "Check the email address, for example name@example.com."
   }
-  if (!input.projectType) errors.projectType = "Choose the closest project type."
+  if (!input.projectType)
+    errors.projectType = "Choose the closest project type."
   if (input.details.trim().length < 10) {
-    errors.details = "Tell us a little about the project, at least 10 characters."
+    errors.details =
+      "Tell us a little about the project, at least 10 characters."
   }
   return errors
 }

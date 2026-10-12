@@ -27,10 +27,16 @@ test("every photo has a known role, alt text and a title", () => {
 
 test("every photo with an image has its files on disk", () => {
   for (const p of photos.filter((p) => !p.placeholder)) {
-    const full = new URL(`../../public/images/projects/${p.id}.webp`, import.meta.url)
+    const full = new URL(
+      `../../public/images/projects/${p.id}.webp`,
+      import.meta.url,
+    )
     assert.ok(existsSync(full), `${p.id}.webp is missing`)
     if (p.width > 800) {
-      const small = new URL(`../../public/images/projects/${p.id}-800.webp`, import.meta.url)
+      const small = new URL(
+        `../../public/images/projects/${p.id}-800.webp`,
+        import.meta.url,
+      )
       assert.ok(existsSync(small), `${p.id}-800.webp is missing`)
     }
   }
@@ -39,7 +45,9 @@ test("every photo with an image has its files on disk", () => {
 test("filter counts add up to the whole gallery", () => {
   const counts = countByFilter(photos)
   assert.equal(counts.all, photos.length)
-  const sum = filters.filter((f) => f.key !== "all").reduce((n, f) => n + counts[f.key], 0)
+  const sum = filters
+    .filter((f) => f.key !== "all")
+    .reduce((n, f) => n + counts[f.key], 0)
   assert.equal(sum, photos.length)
 })
 

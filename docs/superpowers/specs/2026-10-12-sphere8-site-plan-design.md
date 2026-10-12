@@ -161,6 +161,7 @@ Excluded: all certificate, permit and profile-slide images.
 3. Whether to add or remove photos from the curated set, and confirmation of permissions for client-home interiors.
 4. When to switch `robots.index` to `true`.
 5. Resolved: the design renders already appear in the company profile that is shared with clients, so the client considers them fine to show on the website.
+6. The Team block is built but switched off (set `team.visible` to `true` in `src/data/company.ts` once the people agree to appear).
 
 ## 9. Delivery
 

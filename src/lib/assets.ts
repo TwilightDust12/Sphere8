@@ -1,5 +1,7 @@
 export function photoUrl(id: string, small = false): string {
-  return `${import.meta.env.BASE_URL}images/projects/${id}${small ? "-800" : ""}.webp`
+  return `${import.meta.env.BASE_URL}images/projects/${id}${
+    small ? "-800" : ""
+  }.webp`
 }
 
 export function photoSrcSet(id: string, width: number): string | undefined {

@@ -24,7 +24,12 @@ test("a complete inquiry has no errors", () => {
 
 test("an empty inquiry flags every required field but not the optional email", () => {
   const errors = validateInquiry(emptyInquiry)
-  assert.deepEqual(Object.keys(errors).sort(), ["details", "name", "phone", "projectType"])
+  assert.deepEqual(Object.keys(errors).sort(), [
+    "details",
+    "name",
+    "phone",
+    "projectType",
+  ])
 })
 
 test("phone numbers with spaces, dashes and a country code are accepted", () => {
@@ -50,7 +55,9 @@ test("mailto url is a single encoded line with the subject and the details", () 
   const url = buildMailto("sphere8construction@gmail.com", valid)
   assert.ok(url.startsWith("mailto:sphere8construction@gmail.com?subject="))
   assert.ok(!/\s/.test(url), "url must not contain raw whitespace")
-  assert.ok(decodeURIComponent(url).includes("Two-storey house on a 300 sqm lot"))
+  assert.ok(
+    decodeURIComponent(url).includes("Two-storey house on a 300 sqm lot"),
+  )
   assert.ok(decodeURIComponent(url).includes("Project inquiry - Sphere8"))
 })
 

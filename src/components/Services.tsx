@@ -8,7 +8,11 @@ export default function Services() {
   const ref = useReveal<HTMLDivElement>()
 
   return (
-    <section id="services" className="services on-dark" aria-labelledby="services-title">
+    <section
+      id="services"
+      className="services on-dark"
+      aria-labelledby="services-title"
+    >
       <div className="wrap reveal" ref={ref}>
         <h2 id="services-title" className="big">
           From concept <span>to construction.</span>

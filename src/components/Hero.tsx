@@ -7,12 +7,11 @@ export default function Hero() {
       <div className="wrap hero-grid">
         <div className="hero-text">
           <h1>
-            <span>Designed with purpose.</span>
-            <em>Built with precision.</em>
+            <span>Designed with purpose.</span> <em>Built with precision.</em>
           </h1>
           <p>
-            Architecture, engineering and construction under one roof, from first
-            drawing to final detail.
+            Architecture, engineering and construction under one roof, from
+            first drawing to final detail.
           </p>
           <div className="hero-actions">
             <a className="btn btn-dark" href="#contact">

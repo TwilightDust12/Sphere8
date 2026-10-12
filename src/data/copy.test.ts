@@ -5,8 +5,16 @@ import { photos } from "./gallery.ts"
 import { experienceGroups } from "./experience.ts"
 
 test("data modules contain no em-dashes or en-dashes", () => {
-  const all = JSON.stringify({ company, proof, services, steps, team, photos, experienceGroups })
-  const hit = all.match(/.{0,30}[–—].{0,30}/)
+  const all = JSON.stringify({
+    company,
+    proof,
+    services,
+    steps,
+    team,
+    photos,
+    experienceGroups,
+  })
+  const hit = all.match(new RegExp(".{0,30}[\\u2013\\u2014].{0,30}"))
   assert.equal(hit, null, `dash found near: ${hit?.[0]}`)
 })
 
