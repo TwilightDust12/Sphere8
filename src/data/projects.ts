@@ -43,6 +43,7 @@ export const projects: Project[] = [
     category: "Residential",
     discipline: "Residential project & design experience",
     status: "Proposed",
+    imageSrc: "/images/kamuning-townhouse.webp",
     imageAlt: "Three-unit townhouse",
   },
   {
@@ -52,6 +53,7 @@ export const projects: Project[] = [
     category: "Institutional",
     discipline: "Engineering design",
     status: "Proposed",
+    imageSrc: "/images/student-dormitory.webp",
     imageAlt: "International Student Dormitory",
   },
   {
@@ -61,6 +63,7 @@ export const projects: Project[] = [
     category: "Institutional",
     discipline: "Engineering design",
     status: "Proposed",
+    imageSrc: "/images/national-defense-college.webp",
     imageAlt: "National Defense College Academic Building",
   },
 ]
