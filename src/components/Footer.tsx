@@ -1,12 +1,18 @@
 import { company } from "../data/company"
-import Brand from "./Brand"
+import { brandUrl } from "../lib/assets"
 
 export default function Footer() {
   return (
     <footer className="site-footer">
       <div className="wrap footer-row">
         <a href="#home" aria-label="Sphere8 home">
-          <Brand />
+          <img
+            className="footer-logo"
+            src={brandUrl("logo-white.png")}
+            width={90}
+            height={88}
+            alt="Sphere8 Construction Corp."
+          />
         </a>
         <span>
           © {new Date().getFullYear()} {company.name}

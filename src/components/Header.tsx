@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Arrow from "./Arrow"
+import { brandUrl } from "../lib/assets"
 import Brand from "./Brand"
 
 const links = [
@@ -22,7 +23,14 @@ export default function Header() {
 
   return (
     <header className="site-header">
-      <a href="#home" aria-label="Sphere8 home">
+      <a className="brand-link" href="#home" aria-label="Sphere8 home">
+        <img
+          className="brand-mark"
+          src={brandUrl("mark-white.png")}
+          width={29}
+          height={36}
+          alt=""
+        />
         <Brand />
       </a>
       <nav className="desktop-nav" aria-label="Main navigation">

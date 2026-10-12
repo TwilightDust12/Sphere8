@@ -332,3 +332,9 @@ body:has(dialog.lightbox[open]) { overflow: hidden; }
   .inquiry .btn-red, .composed .btn { justify-self: stretch; }
   .site-footer nav { width: 100%; justify-content: space-between; }
 }
+
+/* Logo placements */
+.brand-link { display: inline-flex; align-items: center; gap: 12px; }
+.brand-mark { height: 36px; width: auto; }
+.footer-logo { height: 88px; width: auto; }
+.site-footer .footer-row > a { display: inline-flex; }
