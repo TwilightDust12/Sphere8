@@ -1,3 +1,5 @@
+import Contact from "./components/Contact"
+import Footer from "./components/Footer"
 import Header from "./components/Header"
 import Hero from "./components/Hero"
 import Process from "./components/Process"
@@ -20,7 +22,9 @@ export default function App() {
         <Projects />
         <Process />
         <Team />
+        <Contact />
       </main>
+      <Footer />
     </>
   )
 }
