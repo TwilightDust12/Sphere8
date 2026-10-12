@@ -9,27 +9,30 @@ export default function Hero() {
           <h1>
             <span>Designed with purpose.</span> <em>Built with precision.</em>
           </h1>
-          <p>
-            Architecture, engineering and construction under one roof, from
-            first drawing to final detail.
-          </p>
-          <div className="hero-actions">
-            <a className="btn btn-dark" href="#contact">
-              Start a project <Arrow diagonal />
-            </a>
-            <a className="btn btn-ghost" href="#projects">
-              See our work
-            </a>
+          <div className="hero-lower">
+            <p>
+              Architecture, engineering and construction under one roof, from
+              first drawing to final detail.
+            </p>
+            <div className="hero-actions">
+              <a className="btn btn-dark" href="#contact">
+                Start a project <Arrow diagonal />
+              </a>
+              <a className="btn btn-ghost" href="#projects">
+                See our work
+              </a>
+            </div>
           </div>
         </div>
         <figure className="hero-photo">
           <img
-            src={photoUrl("04-04")}
-            srcSet={photoSrcSet("04-04", 822)}
-            width={822}
-            height={715}
+            src={photoUrl("04-07")}
+            srcSet={photoSrcSet("04-07", 1600)}
+            sizes="(min-width: 1000px) 40vw, 100vw"
+            width={1600}
+            height={1200}
             fetchPriority="high"
-            alt="Two-storey house with a red-brown timber roof canopy and dark glazing, seen from the street"
+            alt="Two-storey house at dusk with a timber-clad upper floor, a black stone ground floor and a deep roof overhang"
           />
         </figure>
       </div>
