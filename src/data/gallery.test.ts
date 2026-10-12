@@ -69,3 +69,13 @@ test("role label falls back to the role name unless overridden", () => {
   const overridden = photos.find((p) => p.label)!
   assert.equal(roleLabel(overridden), overridden.label)
 })
+
+test("rendered images outside the design group are marked as renders or proposals", () => {
+  const unmarked = photos.filter(
+    (p) => /^rendered/i.test(p.alt) && p.role !== "design" && !p.status,
+  )
+  assert.deepEqual(
+    unmarked.map((p) => p.id),
+    [],
+  )
+})

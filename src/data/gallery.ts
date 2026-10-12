@@ -241,7 +241,8 @@ export const photos: Photo[] = [
     title: "Three-Unit, Three-Storey Townhouse",
     role: "construction",
     location: "Kamuning, Quezon City",
-    credit: "Architect: Donica Elden Reyes",
+    status: "Render",
+    credit: "Architect: Donica Elden Reyes, Sphere8",
   },
   {
     id: "32-06",

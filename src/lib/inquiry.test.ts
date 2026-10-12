@@ -80,3 +80,10 @@ test("surrounding whitespace is trimmed", () => {
   const message = buildMessage({ ...valid, name: "  Maria Santos  " })
   assert.ok(message.includes("Name: Maria Santos\n"))
 })
+
+test("shortening never splits an emoji in half", () => {
+  for (let n = 1300; n <= MAILTO_BODY_LIMIT; n++) {
+    const input = { ...valid, details: "a".repeat(n) + "\u{1F600}".repeat(5) }
+    assert.doesNotThrow(() => buildMailto("a@b.co", input), `pad length ${n}`)
+  }
+})

@@ -73,7 +73,10 @@ export function buildMailto(to: string, input: Inquiry): string {
   const subject = "Project inquiry - Sphere8"
   let body = buildMessage(input)
   if (body.length > MAILTO_BODY_LIMIT) {
-    body = `${body.slice(0, MAILTO_BODY_LIMIT)}\n[message shortened to fit an email link]`
+    let cut = MAILTO_BODY_LIMIT
+    const last = body.charCodeAt(cut - 1)
+    if (last >= 0xd800 && last <= 0xdbff) cut -= 1
+    body = `${body.slice(0, cut)}\n[message shortened to fit an email link]`
   }
   return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 }

@@ -127,27 +127,27 @@ export const experienceGroups: ExperienceGroup[] = [
       {
         name: "Two-Storey Residence",
         place: "Citta Grande Subdivision, Lucena City",
-        note: "Architect: Donica Elden Reyes",
+        note: "Architect: Donica Elden Reyes, Sphere8",
       },
       {
         name: "Three-Unit, Three-Storey Townhouse",
         place: "Kamuning, Quezon City",
-        note: "Architect: Donica Elden Reyes",
+        note: "Architect: Donica Elden Reyes, Sphere8",
       },
       {
         name: "Renovation of a Two-Storey Residence",
         place: "Cambria Subdivision, Laguna",
-        note: "Architect: Donica Elden Reyes",
+        note: "Architect: Donica Elden Reyes, Sphere8",
       },
       {
         name: "One-Storey Residence",
         place: "Pandi, Bulacan",
-        note: "Architect: Donica Elden Reyes",
+        note: "Architect: Donica Elden Reyes, Sphere8",
       },
       {
         name: "Three-Bedroom Unit",
         place: "RGR Subdivision, Lucena City",
-        note: "Architect: Donica Elden Reyes",
+        note: "Architect: Donica Elden Reyes, Sphere8",
       },
     ],
   },
