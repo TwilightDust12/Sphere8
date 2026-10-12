@@ -171,3 +171,32 @@ a:hover > .diagonal, button:hover .diagonal { transform: rotate(0); }
   .brand small { display: none; }
   .hero-actions .btn { flex: 1 1 100%; }
 }
+
+/* Services */
+.services { padding-block: clamp(72px, 9vw, 140px); }
+.svc-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(24px, 4vw, 64px); margin-top: clamp(32px, 4vw, 64px); align-items: start; }
+.svc-list { list-style: none; padding: 0; border-top: 1px solid #ffffff2b; }
+.svc { display: grid; grid-template-columns: 56px 1fr; column-gap: 16px; padding-block: 28px; border-bottom: 1px solid #ffffff2b; }
+.svc-n { color: var(--color-brand-light); padding-top: 8px; }
+.svc h3 { font-size: clamp(24px, 2.6vw, 38px); line-height: 1.05; letter-spacing: -.03em; font-weight: 600; transition: color .25s; }
+.svc.is-active h3 { color: var(--color-brand-light); }
+.svc p, .svc-items, .svc .u-link, .svc-thumb { grid-column: 2; }
+.svc p { margin-top: 12px; max-width: 46ch; color: var(--color-muted-on-ink); }
+.svc-items { list-style: none; padding: 0; margin: 14px 0 20px; font-size: 15px; }
+.svc-items li { padding: 4px 0; }
+.svc-items li::before { content: '+'; margin-right: 10px; color: var(--color-brand-light); font-family: var(--font-mono); }
+.svc .u-link { justify-self: start; }
+.svc-thumb { display: none; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; margin-bottom: 20px; border: 1.5px solid var(--color-paper); }
+.svc-preview { position: sticky; top: calc(var(--header) + 24px); aspect-ratio: 4 / 5; border: 1.5px solid var(--color-paper); overflow: hidden; background: #262725; }
+.svc-preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .35s ease; }
+.svc-preview img.is-active { opacity: 1; }
+
+@media (max-width: 1000px) {
+  .svc-layout { grid-template-columns: 1fr; }
+  .svc-preview { display: none; }
+  .svc-thumb { display: block; }
+}
+@media (max-width: 720px) {
+  .svc { grid-template-columns: 1fr; }
+  .svc-n, .svc p, .svc-items, .svc .u-link, .svc-thumb { grid-column: 1; }
+}
