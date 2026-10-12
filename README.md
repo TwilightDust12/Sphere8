@@ -112,7 +112,6 @@ The repository also contains Figma Make scripts (`.figma/make/deploy`) for publi
 
 - `docs/superpowers/specs/` has the design spec: structure, rules, decisions and the rounds of changes.
 - `docs/superpowers/plans/` has the implementation plan.
-- `plans/sphere8-website.md` is the original brief and content rules.
 
 ## Credits and licences
 
