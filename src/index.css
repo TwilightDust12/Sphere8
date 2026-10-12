@@ -36,6 +36,8 @@
 :root {
   --pad: clamp(20px, 4.4vw, 64px);
   --header: 64px;
+  /* page gutter: matches the centred 1520px content column, so the header lines up with the content */
+  --gutter: max(var(--pad), calc((100vw - 1520px) / 2 + var(--pad)));
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
@@ -111,26 +113,26 @@ h1, h2, h3 { font-family: var(--font-display); }
 @media print { .reveal-scope .reveal-item { opacity: 1 !important; animation: none !important; } }
 
 /* Header */
-.site-header { position: sticky; top: 0; z-index: 30; height: var(--header); display: flex; align-items: center; gap: 32px; padding-inline: var(--pad); background: var(--color-ink); color: var(--color-paper); }
+.site-header { position: sticky; top: 0; z-index: 30; height: var(--header); display: flex; align-items: center; gap: 32px; padding-inline: var(--gutter); background: var(--color-ink); color: var(--color-paper); }
 .brand { font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -.04em; display: inline-flex; align-items: baseline; gap: 10px; white-space: nowrap; }
 .brand b { color: var(--color-brand-light); font-weight: 700; }
 .brand small { font-family: var(--font-mono); font-weight: 400; font-size: 10px; letter-spacing: .14em; opacity: .75; }
 .desktop-nav { margin-left: auto; display: flex; gap: 6px; }
 .desktop-nav a { padding: 12px 14px; font-size: 14px; transition: background .2s; }
-.header-cta { display: inline-flex; align-items: center; gap: 12px; height: 100%; padding-inline: 24px; background: var(--color-brand); color: var(--color-paper); font-size: 14px; font-weight: 500; white-space: nowrap; transition: background .2s, color .2s; margin-right: calc(var(--pad) * -1); }
+.header-cta { display: inline-flex; align-items: center; gap: 12px; height: 100%; padding-inline: 24px; background: var(--color-brand); color: var(--color-paper); font-size: 14px; font-weight: 500; white-space: nowrap; transition: background .2s, color .2s; margin-right: calc(var(--gutter) * -1); }
 .menu-toggle, .mobile-nav { display: none; }
 
 /* Hero */
 .hero { background: var(--color-brand); color: var(--color-paper); overflow: clip; }
-.hero-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(24px, 3vw, 40px) 24px; align-items: stretch; align-content: center; min-height: calc(100dvh - var(--header)); padding-block: clamp(28px, 3.5vw, 48px); }
+.hero-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(28px, 3.4vw, 48px) 24px; align-items: stretch; align-content: center; min-height: calc(100dvh - var(--header)); padding-block: clamp(28px, 3.5vw, 48px); }
 .hero h1 { grid-column: 1 / -1; font-weight: 700; text-transform: uppercase; font-size: clamp(28px, 5vw, 80px); line-height: .94; letter-spacing: -.05em; }
 .hero h1 span, .hero h1 em { display: block; }
 .hero h1 em { font-style: normal; color: var(--color-ink); }
-.hero-lower { grid-column: 1 / span 5; display: flex; flex-direction: column; justify-content: flex-end; gap: 24px; padding-bottom: 14px; }
-.hero-lower p { font-size: clamp(18px, 1.7vw, 26px); line-height: 1.4; max-width: 24em; }
+.hero-lower { grid-column: 1 / span 4; display: flex; flex-direction: column; justify-content: center; gap: 28px; padding-bottom: 14px; }
+.hero-lower p { font-size: clamp(18px, 1.5vw, 24px); line-height: 1.45; max-width: 22em; text-wrap: balance; }
 .nowrap { white-space: nowrap; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
-.hero-photo { grid-column: 7 / span 6; position: relative; padding: 0 14px 14px 0; }
+.hero-photo { grid-column: 6 / span 7; position: relative; padding: 0 14px 14px 0; }
 .hero-photo img { position: relative; z-index: 1; display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 35%; border: 1.5px solid var(--color-ink); }
 .hero-photo::after { content: ''; position: absolute; inset: 14px 0 0 14px; border: 1.5px solid var(--color-ink); }
 .hero-grid > * { animation: rise 480ms var(--ease-out) both; }
