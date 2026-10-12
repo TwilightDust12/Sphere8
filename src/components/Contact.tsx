@@ -9,6 +9,7 @@ import { company } from "../data/company"
 import {
   buildMailto,
   buildMessage,
+  buildFormBody,
   emptyInquiry,
   isShortened,
   projectTypes,
@@ -62,6 +63,9 @@ export default function Contact() {
   const [values, setValues] = useState<Inquiry>(emptyInquiry)
   const [errors, setErrors] = useState<InquiryErrors>({})
   const [composed, setComposed] = useState(false)
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "failed">(
+    "idle",
+  )
   const [copied, setCopied] = useState(false)
   const messageRef = useRef<HTMLTextAreaElement>(null)
   const ref = useReveal<HTMLDivElement>()
@@ -74,13 +78,20 @@ export default function Contact() {
       setValues((current) => ({ ...current, [key]: event.target.value }))
       setComposed(false)
       setCopied(false)
+      setStatus((current) => (current === "sending" ? current : "idle"))
     }
 
   const describe = (key: InquiryField) =>
     errors[key] ? `inq-${key}-error` : undefined
 
-  const onSubmit = (event: FormEvent) => {
+  const openEmailDraft = () => {
+    setComposed(true)
+    window.location.href = buildMailto(company.emails[0], values)
+  }
+
+  const onSubmit = async (event: FormEvent) => {
     event.preventDefault()
+    if (status === "sending") return
     const found = validateInquiry(values)
     setErrors(found)
     const firstInvalid = fieldOrder.find((key) => found[key])
@@ -88,8 +99,22 @@ export default function Contact() {
       document.getElementById(`inq-${firstInvalid}`)?.focus()
       return
     }
-    setComposed(true)
-    window.location.href = buildMailto(company.emails[0], values)
+    setStatus("sending")
+    setComposed(false)
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: buildFormBody(values),
+      })
+      if (!response.ok) throw new Error(`status ${response.status}`)
+      setStatus("sent")
+      setValues(emptyInquiry)
+    } catch {
+      // not hosted on Netlify, offline or rejected: fall back to the email draft
+      setStatus("failed")
+      openEmailDraft()
+    }
   }
 
   const copyMessage = async () => {
@@ -204,11 +229,33 @@ export default function Contact() {
                 aria-describedby={describe("details")}
               />
             </Field>
-            <button className="btn btn-red" type="submit">
-              Open email draft <Arrow diagonal />
+            <button
+              className="btn btn-red"
+              type="submit"
+              disabled={status === "sending"}
+            >
+              {status === "sending" ? "Sending..." : "Send inquiry"}{" "}
+              <Arrow diagonal />
+            </button>
+            <button type="button" className="u-link" onClick={openEmailDraft}>
+              Or open an email draft instead
             </button>
 
             <div role="status" aria-live="polite">
+              {status === "sent" && (
+                <div className="composed">
+                  <p>
+                    Thank you. We received your inquiry and will reply by phone
+                    or email.
+                  </p>
+                </div>
+              )}
+              {status === "failed" && (
+                <p className="field-error">
+                  We could not send it from this page, so we opened an email
+                  draft instead.
+                </p>
+              )}
               {composed && (
                 <div className="composed">
                   <p>

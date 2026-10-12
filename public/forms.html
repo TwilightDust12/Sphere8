@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>Forms</title>
+  </head>
+  <body>
+    <!-- Declares the inquiry form so Netlify Forms can find it at deploy time.
+         The visible form lives in src/components/Contact.tsx and posts to "/".
+         Field names must match buildFormBody() in src/lib/inquiry.ts. -->
+    <form name="inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
+      <input name="name" />
+      <input name="phone" />
+      <input name="email" />
+      <input name="projectType" />
+      <input name="location" />
+      <textarea name="details"></textarea>
+    </form>
+  </body>
+</html>
