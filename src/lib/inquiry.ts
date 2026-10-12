@@ -9,7 +9,11 @@ export const projectTypes = [
   "Not sure yet",
 ] as const
 
-export const MAILTO_BODY_LIMIT = 1500
+/** Longest mailto URL (encoded) we hand to a mail client; Windows handlers cut near 2000. */
+export const MAILTO_URL_LIMIT = 1900
+
+const SUBJECT = "Project inquiry - Sphere8"
+const SHORTENED_NOTE = "\n[message shortened to fit an email link]"
 
 export interface Inquiry {
   name: string
@@ -69,14 +73,29 @@ export function buildMessage(input: Inquiry): string {
   return lines.filter((line): line is string => line !== null).join("\n")
 }
 
+function mailtoFor(to: string, body: string): string {
+  return `mailto:${to}?subject=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(body)}`
+}
+
+export function isShortened(to: string, input: Inquiry): boolean {
+  return mailtoFor(to, buildMessage(input)).length > MAILTO_URL_LIMIT
+}
+
 export function buildMailto(to: string, input: Inquiry): string {
-  const subject = "Project inquiry - Sphere8"
-  let body = buildMessage(input)
-  if (body.length > MAILTO_BODY_LIMIT) {
-    let cut = MAILTO_BODY_LIMIT
-    const last = body.charCodeAt(cut - 1)
-    if (last >= 0xd800 && last <= 0xdbff) cut -= 1
-    body = `${body.slice(0, cut)}\n[message shortened to fit an email link]`
+  const full = buildMessage(input)
+  if (mailtoFor(to, full).length <= MAILTO_URL_LIMIT) return mailtoFor(to, full)
+  // cut by code points, so an emoji is never split, until the encoded URL fits
+  const chars = Array.from(full)
+  let low = 0
+  let high = chars.length
+  while (low < high) {
+    const mid = Math.ceil((low + high) / 2)
+    const candidate = mailtoFor(
+      to,
+      chars.slice(0, mid).join("") + SHORTENED_NOTE,
+    )
+    if (candidate.length <= MAILTO_URL_LIMIT) low = mid
+    else high = mid - 1
   }
-  return `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+  return mailtoFor(to, chars.slice(0, low).join("") + SHORTENED_NOTE)
 }

@@ -4,10 +4,11 @@ export const company = {
   address: "517 Quezon Blvd., Brgy. Gulang-Gulang, Lucena City",
   emails: ["sphere8construction@gmail.com", "dedr.design@gmail.com"],
   phones: [
-    { label: "(042) 373-3695", href: "tel:+63423733695" },
-    { label: "0920-9698592", href: "tel:+639209698592" },
-    { label: "0917-6757221", href: "tel:+639176757221" },
+    { label: "(042) 373-3695", href: "tel:+63423733695", kind: "Landline" },
+    { label: "0920-9698592", href: "tel:+639209698592", kind: "Mobile" },
+    { label: "0917-6757221", href: "tel:+639176757221", kind: "Mobile" },
   ],
+  messenger: "https://m.me/sphere8construction",
   socials: [
     { label: "Facebook", href: "https://www.facebook.com/sphere8construction" },
     { label: "YouTube", href: "https://www.youtube.com/@sphere8construction" },
@@ -32,6 +33,7 @@ export const services = [
       "Land development & landscaping",
     ],
     photo: "05-07",
+    photoWidth: 1600,
     photoAlt: "Two-storey house with stone cladding and large glass doors",
   },
   {
@@ -44,6 +46,7 @@ export const services = [
       "Civil structural design & assessments",
     ],
     photo: "17-04",
+    photoWidth: 1004,
     photoAlt: "Steel roof framing of a warehouse under construction",
   },
   {
@@ -56,6 +59,7 @@ export const services = [
       "Construction oversight",
     ],
     photo: "02-03",
+    photoWidth: 1200,
     photoAlt: "Finished two-storey house with a basement garage",
   },
 ]
@@ -79,7 +83,7 @@ export const steps = [
 ]
 
 export const team = {
-  visible: false,
+  visible: true,
   members: [
     { name: "Engr. Farly D. Vergel", title: "President" },
     {

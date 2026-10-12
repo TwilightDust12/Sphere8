@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Arrow from "./Arrow"
 import { brandUrl } from "../lib/assets"
 import Brand from "./Brand"
@@ -12,10 +12,16 @@ const links = [
 
 export default function Header() {
   const [open, setOpen] = useState(false)
+  const openRef = useRef(false)
+  const toggleRef = useRef<HTMLButtonElement>(null)
+  openRef.current = open
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false)
+      if (event.key === "Escape" && openRef.current) {
+        setOpen(false)
+        toggleRef.current?.focus()
+      }
     }
     window.addEventListener("keydown", onKey)
     return () => window.removeEventListener("keydown", onKey)
@@ -45,6 +51,7 @@ export default function Header() {
       </a>
       <button
         type="button"
+        ref={toggleRef}
         className="menu-toggle"
         aria-expanded={open}
         aria-controls="mobile-navigation"

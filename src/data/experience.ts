@@ -31,7 +31,7 @@ export const experienceGroups: ExperienceGroup[] = [
       {
         name: "Subdivision site development planning",
         place: "Pulong Saging, Silang, Cavite",
-        note: "Civil site development for Pacrim Dev. Corporation",
+        note: "Civil site development. Client: Pacrim Dev. Corporation",
       },
     ],
   },
@@ -46,28 +46,27 @@ export const experienceGroups: ExperienceGroup[] = [
       },
       {
         name: "Visa Building, 3-storey residence",
-        place: "Mamalateo Land Inc.",
-        note: "Architect: Archtrike",
+        note: "Client: Mamalateo Land Inc. Architect: Archtrike",
       },
       {
         name: "Glacier South Cold Storage, Phase 3 with mezzanine office",
         place: "AMVEL Business Park, Sucat, Parañaque City",
-        note: "Phil-Nippon Kyoei Corporation",
+        note: "Client: Phil-Nippon Kyoei Corporation",
       },
       {
         name: "Glacier South Cold Storage, Phase 4",
         place: "AMVEL Business Park, Sucat, Parañaque City",
-        note: "Phil-Nippon Kyoei Corporation",
+        note: "Client: Phil-Nippon Kyoei Corporation",
       },
       {
         name: "Alsons Processing Plant",
         place: "Pueblo de Panay, Roxas City, Capiz",
-        note: "Phil-Nippon Kyoei Corporation",
+        note: "Client: Phil-Nippon Kyoei Corporation",
       },
       {
         name: "WWAM Warehouse Complex",
         place: "San Pedro City, Laguna",
-        note: "Worldwide Apparel Mfg. Inc.",
+        note: "Client: Worldwide Apparel Mfg. Inc.",
       },
       {
         name: "Young Achiever’s School of Caloocan, 4-storey",
@@ -95,7 +94,7 @@ export const experienceGroups: ExperienceGroup[] = [
       {
         name: "MCVI Warehouse with Office",
         place: "Brgy. Bancal, Meycauayan City, Bulacan",
-        note: "Mandarin Credit Ventures, Inc.",
+        note: "Client: Mandarin Credit Ventures, Inc.",
       },
       { name: "CW Home Depot Warehouse", place: "GT Natural, Ortigas Center" },
       {
@@ -105,23 +104,26 @@ export const experienceGroups: ExperienceGroup[] = [
       {
         name: "AISAT Fairview Campus, 4-storey school building",
         place: "Quezon City",
-        note: "JMAX Builders",
+        note: "Contractor: JMAX Builders",
       },
       { name: "Revision design of a 2-storey commercial building" },
       {
         name: "Theresa M-48 Townhouse, 11 units, 2-storey",
-        note: "JMAX Builders",
+        note: "Contractor: JMAX Builders",
       },
-      { name: "Frenza Commercial, one-storey", note: "JMAX Builders" },
+      {
+        name: "Frenza Commercial, one-storey",
+        note: "Contractor: JMAX Builders",
+      },
       {
         name: "Gantuanco Residence",
         place: "Quezon City",
-        note: "JMAX Builders",
+        note: "Contractor: JMAX Builders",
       },
       {
         name: "Tamonte Residence",
         place: "Parañaque City",
-        note: "JMAX Builders",
+        note: "Contractor: JMAX Builders",
       },
       { name: "150 sq.m. Mechanical Deck, steel structure" },
       {

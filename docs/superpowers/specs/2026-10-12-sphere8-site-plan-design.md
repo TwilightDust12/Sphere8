@@ -181,3 +181,11 @@ Work proceeds on `redesign/site-plan` with one commit per block of work. `assets
 2. The gallery shows a curated set of 12 by default (`FEATURED_COUNT`), strongest first and covering every group, with "Show all 25 projects". The mosaic uses a 5-tile cycle (two wide, three narrow) so tiles in a row share one height. The Magallanes placeholder tile is removed from the public gallery; the project stays in the experience list.
 3. Headlines now name place and work in a warmer voice, using only facts from the company profile: the hero line, "Based in Lucena. Working across the region.", "Houses to warehouses. Same detail.", "How we work with you.", and a one-sentence invitation above the form.
 4. Smallest text raised to 10 to 12px.
+
+## 12. Round 3 (branch redesign/p2-and-minors)
+
+1. Hero: the headline spans the full width at up to 100px, with the copy block and photo below it aligned top and bottom. The campaign tent lettering in the hero photo is removed.
+2. Contact: the form button reads "Open email draft", the contact column adds "Message us on Facebook" (https://m.me/sphere8construction, to be tested on the live page) and labels Landline and Mobile numbers. The status panel is a live region that is always mounted, and says when the email draft was shortened.
+3. Mailto limit is measured on the encoded URL (1900 characters) and cuts by code point.
+4. Gallery: failed images are skipped by the lightbox; one column below 768px; filter buttons announce their counts. Mobile menu returns focus to its toggle on Esc. Service rows no longer carry 01 to 03 numbers.
+5. Credits in the experience list say Client or Contractor. Team block is on. `robots.index` is `true`. The share image still needs a full web address once there is a domain.

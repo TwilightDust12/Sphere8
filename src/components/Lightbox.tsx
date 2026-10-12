@@ -7,6 +7,7 @@ interface LightboxProps {
   index: number | null
   onClose: () => void
   onIndexChange: (index: number) => void
+  onBroken?: (id: string) => void
 }
 
 export default function Lightbox({
@@ -14,6 +15,7 @@ export default function Lightbox({
   index,
   onClose,
   onIndexChange,
+  onBroken,
 }: LightboxProps) {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const touchStart = useRef<number | null>(null)
@@ -68,6 +70,7 @@ export default function Lightbox({
               alt={photo.alt}
               width={photo.width}
               height={photo.height}
+              onError={() => onBroken?.(photo.id)}
             />
             <figcaption>
               <span className="mono">{roleLabel(photo)}</span>

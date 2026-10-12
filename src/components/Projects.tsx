@@ -19,9 +19,10 @@ import Placeholder from "./Placeholder"
 interface TileProps {
   photo: Photo
   onOpen: () => void
+  onFail: () => void
 }
 
-function Tile({ photo, onOpen }: TileProps) {
+function Tile({ photo, onOpen, onFail }: TileProps) {
   const [failed, setFailed] = useState(false)
   const hasImage = !photo.placeholder && !failed
 
@@ -39,12 +40,15 @@ function Tile({ photo, onOpen }: TileProps) {
               className="tile-img"
               src={photoUrl(photo.id, photo.width > 800)}
               srcSet={photoSrcSet(photo.id, photo.width)}
-              sizes="(min-width: 1000px) 45vw, 100vw"
+              sizes="(min-width: 768px) 50vw, 100vw"
               alt={photo.alt}
               width={photo.width}
               height={photo.height}
               loading="lazy"
-              onError={() => setFailed(true)}
+              onError={() => {
+                setFailed(true)
+                onFail()
+              }}
             />
           </button>
         ) : (
@@ -72,6 +76,9 @@ export default function Projects() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [moreOpen, setMoreOpen] = useState(false)
   const [showAll, setShowAll] = useState(false)
+  const [failedIds, setFailedIds] = useState<string[]>([])
+  const markFailed = (id: string) =>
+    setFailedIds((ids) => (ids.includes(id) ? ids : [...ids, id]))
   const ref = useReveal<HTMLDivElement>()
 
   const counts = useMemo(() => countByFilter(photos), [])
@@ -81,7 +88,10 @@ export default function Projects() {
     () => (limited ? visible.slice(0, FEATURED_COUNT) : visible),
     [limited, visible],
   )
-  const viewable = useMemo(() => shown.filter((p) => !p.placeholder), [shown])
+  const viewable = useMemo(
+    () => shown.filter((p) => !p.placeholder && !failedIds.includes(p.id)),
+    [shown, failedIds],
+  )
 
   return (
     <section
@@ -104,6 +114,7 @@ export default function Projects() {
                 key={item.key}
                 type="button"
                 aria-pressed={filter === item.key}
+                aria-label={`${item.label}, ${counts[item.key]} projects`}
                 onClick={() => setFilter(item.key)}
               >
                 {item.label}
@@ -132,6 +143,7 @@ export default function Projects() {
                 onOpen={() =>
                   setOpenIndex(viewable.findIndex((p) => p.id === photo.id))
                 }
+                onFail={() => markFailed(photo.id)}
               />
             ))}
           </div>
@@ -188,6 +200,10 @@ export default function Projects() {
         index={openIndex}
         onClose={() => setOpenIndex(null)}
         onIndexChange={setOpenIndex}
+        onBroken={(id) => {
+          markFailed(id)
+          setOpenIndex(null)
+        }}
       />
     </section>
   )

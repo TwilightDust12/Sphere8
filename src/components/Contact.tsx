@@ -10,6 +10,7 @@ import {
   buildMailto,
   buildMessage,
   emptyInquiry,
+  isShortened,
   projectTypes,
   validateInquiry,
   type Inquiry,
@@ -204,32 +205,36 @@ export default function Contact() {
               />
             </Field>
             <button className="btn btn-red" type="submit">
-              Start a project <Arrow diagonal />
+              Open email draft <Arrow diagonal />
             </button>
 
-            {composed && (
-              <div className="composed" role="status">
-                <p>
-                  Your email app should open with this message ready to send. If
-                  it did not, copy the message and email it to{" "}
-                  {company.emails[0]}, or call {company.phones[0].label}.
-                </p>
-                <textarea
-                  ref={messageRef}
-                  readOnly
-                  rows={6}
-                  value={buildMessage(values)}
-                  aria-label="Your message"
-                />
-                <button
-                  type="button"
-                  className="btn btn-ghost"
-                  onClick={copyMessage}
-                >
-                  {copied ? "Copied" : "Copy message"}
-                </button>
-              </div>
-            )}
+            <div role="status" aria-live="polite">
+              {composed && (
+                <div className="composed">
+                  <p>
+                    Your email app should open with this message ready to send.
+                    If it did not, copy the message and email it to{" "}
+                    {company.emails[0]}, or call {company.phones[0].label}.
+                    {isShortened(company.emails[0], values) &&
+                      " The draft is shortened to fit; use Copy message for the full text."}
+                  </p>
+                  <textarea
+                    ref={messageRef}
+                    readOnly
+                    rows={6}
+                    value={buildMessage(values)}
+                    aria-label="Your message"
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-ghost"
+                    onClick={copyMessage}
+                  >
+                    {copied ? "Copied" : "Copy message"}
+                  </button>
+                </div>
+              )}
+            </div>
           </form>
 
           <div className="contact-info reveal-item" style={stagger(3)}>
@@ -243,8 +248,18 @@ export default function Contact() {
             {company.phones.map((phone) => (
               <a className="c-link" href={phone.href} key={phone.href}>
                 {phone.label}
+                <span className="c-kind mono">{phone.kind}</span>
               </a>
             ))}
+            <span className="c-label mono">Message</span>
+            <a
+              className="c-link"
+              href={company.messenger}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Message us on Facebook
+            </a>
             <span className="c-label mono">Visit our office</span>
             <p>{company.address}</p>
             <a

@@ -2,7 +2,7 @@ import { useState } from "react"
 import { services } from "../data/company"
 import { useReveal } from "../hooks/useReveal"
 import { stagger } from "../lib/motion"
-import { photoUrl } from "../lib/assets"
+import { photoSrcSet, photoUrl } from "../lib/assets"
 
 export default function Services() {
   const [active, setActive] = useState(0)
@@ -30,7 +30,6 @@ export default function Services() {
                 onMouseEnter={() => setActive(index)}
                 onFocusCapture={() => setActive(index)}
               >
-                <span className="mono svc-n">{service.n}</span>
                 <h3>{service.title}</h3>
                 <p>{service.text}</p>
                 <ul className="svc-items">
@@ -41,6 +40,8 @@ export default function Services() {
                 <img
                   className="svc-thumb"
                   src={photoUrl(service.photo)}
+                  srcSet={photoSrcSet(service.photo, service.photoWidth)}
+                  sizes="(min-width: 1001px) 40vw, 100vw"
                   alt={service.photoAlt}
                   loading="lazy"
                 />
@@ -60,6 +61,8 @@ export default function Services() {
                 key={service.n}
                 className={active === index ? "is-active" : ""}
                 src={photoUrl(service.photo)}
+                srcSet={photoSrcSet(service.photo, service.photoWidth)}
+                sizes="38vw"
                 alt=""
                 loading="lazy"
               />
