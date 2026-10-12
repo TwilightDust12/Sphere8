@@ -2,7 +2,7 @@
 
 Single-page company profile for **Sphere8 Construction Corp.**, a design-and-build firm (architects, engineers, contractor) in Lucena City, Philippines. The site shows the firm's real project work, explains its services and makes it easy for homeowners and small commercial clients to start an inquiry.
 
-Built with React 19, Vite 8 and Tailwind CSS v4. It is a static site: there is no backend, database or CMS.
+Built with React 19, Vite 8 and Tailwind CSS v4. It is a static site with no backend or CMS; inquiries are handled by Netlify Forms.
 
 ## What's on the page
 
@@ -15,7 +15,7 @@ Built with React 19, Vite 8 and Tailwind CSS v4. It is a static site: there is n
 | More project experience | Full list from the profile, with client and contractor credits |
 | Process | Plan, Coordinate, Build |
 | Team | Can be switched off (see below) |
-| Contact | Inquiry form that opens an email draft, call and email links, Facebook message link, map link |
+| Contact | Inquiry form (Netlify Forms, with an email-draft fallback), call and email links, Facebook message link, map link |
 | Mobile bar | Fixed "Call us / Start a project" bar on phones and tablets |
 
 ## Getting started
@@ -78,21 +78,33 @@ Set `team.visible` to `false` to hide the team section.
 
 ## The inquiry form
 
-There is no server. The form builds a `mailto:` link to the first email in `src/data/company.ts` and opens the visitor's email app. Because many visitors have no mail app configured, the page also shows the composed message with a **Copy message** button and the phone number. Messages longer than a mail client can handle are shortened in the draft, and the page says so.
+The form posts to **Netlify Forms** and has no server code of its own.
 
-If you later want submissions without an email app, the form can post to a form service or a serverless function instead.
+- `public/forms.html` declares the form (name `inquiry`) so Netlify detects it at deploy time. Its field names must match `buildFormBody()` in `src/lib/inquiry.ts`.
+- On "Send inquiry" the page posts the fields to `/`. Only a successful response shows the thank-you message.
+- If the post fails (not hosted on Netlify, offline, or rejected), the page says so and falls back to an email draft: it opens the visitor's mail app with the message filled in, and shows the message with a **Copy message** button and the phone number. An "Or open an email draft instead" link offers the same path up front.
+- Spam is filtered with a honeypot field (`bot-field`) plus Netlify's own spam filtering.
+
+After the first deploy, open Netlify, then **Forms**, then **inquiry**, and add an email notification under **Settings and usage** so each inquiry reaches `sphere8construction@gmail.com`. Submissions are also stored in Netlify for review.
 
 ## Before going live
 
 - Set `openGraph.image` in `.figma/make/site.json` to a full address, for example `https://yourdomain.com/og-image.jpg`, so social previews work.
 - `robots.index` in the same file is `true`; set it to `false` for a private preview.
 - Confirm the team members' names and titles and that they agree to appear, or hide the team block.
+- Send a test inquiry on the live site and confirm the notification email arrives.
 - Check the Facebook message link (`https://m.me/sphere8construction`) on the live site.
 - Look at the site on a real phone and tablet.
 
 ## Deployment
 
-The build output is a plain static site in `dist/`. Use `pnpm build` as the build command and `dist` as the publish directory on any static host. No redirects or server settings are needed, because the page has no client-side routes.
+The build output is a plain static site in `dist/`. The repository includes `netlify.toml`, so Netlify picks up the settings by itself:
+
+1. In Netlify choose **Add new site, Import an existing project** and connect the GitHub repository.
+2. Build command `pnpm build`, publish directory `dist`, Node 22 (already set in `netlify.toml`).
+3. After the first deploy, set up the form notification (see above), add your domain, and replace the share image address in `.figma/make/site.json`.
+
+No redirects are needed, because the page has no client-side routes.
 
 The repository also contains Figma Make scripts (`.figma/make/deploy`) for publishing from Figma Make.
 

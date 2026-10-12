@@ -77,6 +77,23 @@ function mailtoFor(to: string, body: string): string {
   return `mailto:${to}?subject=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(body)}`
 }
 
+/** Name of the Netlify form declared in public/forms.html. */
+export const FORM_NAME = "inquiry"
+
+/** URL-encoded body for the Netlify Forms POST. "bot-field" is the honeypot and must stay empty. */
+export function buildFormBody(input: Inquiry): string {
+  return new URLSearchParams({
+    "form-name": FORM_NAME,
+    "bot-field": "",
+    name: input.name.trim(),
+    phone: input.phone.trim(),
+    email: input.email.trim(),
+    projectType: input.projectType,
+    location: input.location.trim(),
+    details: input.details.trim(),
+  }).toString()
+}
+
 export function isShortened(to: string, input: Inquiry): boolean {
   return mailtoFor(to, buildMessage(input)).length > MAILTO_URL_LIMIT
 }

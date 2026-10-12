@@ -296,6 +296,8 @@ body:has(dialog.lightbox[open]) { overflow: hidden; }
 .field [aria-invalid='true'] { border-color: var(--color-brand-light); }
 .field-error { color: var(--color-brand-light); font-size: 14px; }
 .inquiry .btn-red { justify-self: start; }
+.inquiry .u-link { justify-self: start; background: none; border: 0; padding: 0; text-align: left; color: var(--color-muted-on-ink); }
+.btn:disabled { opacity: .6; cursor: progress; pointer-events: none; }
 .composed { display: grid; gap: 12px; padding: 20px; border: 1.5px solid var(--color-paper); }
 .composed p { font-size: 15px; }
 .composed .btn { justify-self: start; }

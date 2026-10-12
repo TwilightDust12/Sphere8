@@ -1,7 +1,9 @@
 import test from "node:test"
 import assert from "node:assert/strict"
 import {
+  FORM_NAME,
   MAILTO_URL_LIMIT,
+  buildFormBody,
   isShortened,
   buildMailto,
   buildMessage,
@@ -105,4 +107,24 @@ test("isShortened reports when the email draft will be cut", () => {
     }),
     true,
   )
+})
+
+test("form body carries the Netlify form name, every field and an empty honeypot", () => {
+  const params = new URLSearchParams(buildFormBody(valid))
+  assert.equal(params.get("form-name"), FORM_NAME)
+  assert.equal(params.get("name"), "Maria Santos")
+  assert.equal(params.get("phone"), "0917-675-7221")
+  assert.equal(params.get("email"), "maria@example.com")
+  assert.equal(params.get("projectType"), "New house or residence")
+  assert.equal(params.get("location"), "Lucena City")
+  assert.ok((params.get("details") ?? "").includes("Two-storey house"))
+  assert.equal(params.get("bot-field"), "")
+})
+
+test("form body trims fields and keeps newlines and accents intact", () => {
+  const params = new URLSearchParams(
+    buildFormBody({ ...valid, name: "  Mar\u00eda  ", details: "line one\nline two" }),
+  )
+  assert.equal(params.get("name"), "Mar\u00eda")
+  assert.equal(params.get("details"), "line one\nline two")
 })
