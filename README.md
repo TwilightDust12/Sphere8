@@ -25,7 +25,7 @@ Requirements: Node 22 and pnpm 10 (versions are pinned in `.mise.toml`).
 ```bash
 pnpm install
 pnpm dev          # development server, default port 8443 (set PORT to change)
-pnpm build        # production build into dist/
+pnpm build        # production build into dist/ (also pre-renders the page, see "Search engines")
 pnpm preview      # serve the production build locally
 ```
 
@@ -44,6 +44,8 @@ The unit tests need Node 22.18 or newer, because they run TypeScript directly.
 ```
 src/
   App.tsx                 composes the sections
+  main.tsx                browser entry (hydrates the pre-rendered page)
+  entry-server.tsx        build-time entry that renders the page to HTML
   components/             one file per section (Hero, Services, Projects, Contact, ...)
   data/
     company.ts            contact details, socials, proof facts, services, process, team
@@ -51,6 +53,7 @@ src/
     experience.ts         "More project experience" list
   lib/
     inquiry.ts            form validation and the mailto builder
+    seo.ts                structured data, sitemap.xml and robots.txt
     assets.ts             photo and brand URL helpers
     motion.ts             stagger helper for reveals
   hooks/useReveal.ts      scroll reveal (IntersectionObserver)
@@ -59,6 +62,7 @@ public/
   images/projects/        gallery and hero photos (WebP, plus -800 variants for phones)
   brand/                  logo files (transparent PNGs and the originals)
   fonts/                  self-hosted fonts and their licences
+scripts/prerender.mjs     puts the rendered page into dist/index.html
 docs/superpowers/         design spec and implementation plan
 .figma/make/              Figma Make platform scripts and site.json
 ```
@@ -74,6 +78,8 @@ Set `team.visible` to `false` to hide the team section.
 
 **Page title, description, favicon, share image, search indexing**: `.figma/make/site.json`.
 
+**Site address (canonical link, sitemap, structured data)**: `company.url` in `src/data/company.ts`.
+
 **Colours, type and spacing**: tokens at the top of `src/index.css`.
 
 ## The inquiry form
@@ -87,10 +93,23 @@ The form posts to **Netlify Forms** and has no server code of its own.
 
 After the first deploy, open Netlify, then **Forms**, then **inquiry**, and add an email notification under **Settings and usage** so each inquiry reaches `sphere8construction@gmail.com`. Submissions are also stored in Netlify for review.
 
+## Search engines
+
+Everything below is generated at build time, so there is nothing to maintain by hand.
+
+- **Pre-rendered HTML.** `pnpm build` runs `vite build`, a second server-side build of `src/entry-server.tsx`, then `scripts/prerender.mjs`, which writes the rendered page into `dist/index.html`. Crawlers, link previews and visitors without JavaScript get the real content; the browser then hydrates it. In `pnpm dev` the page renders in the browser as before.
+- **Head tags.** Title, description and share image come from `.figma/make/site.json`. The canonical link, `og:url`, `og:site_name`, `og:locale`, image size and alt text, and the `robots` tag are added by the `seoHead` plugin in `vite.config.ts`.
+- **Structured data.** A `GeneralContractor` and `WebSite` JSON-LD block is built from `src/data/company.ts` (name, address, phones, social pages, service areas), so it stays in step with the visible page.
+- **`sitemap.xml` and `robots.txt`** are emitted into `dist/`. With `robots.index` set to `false` in `site.json`, the extra tags and sitemap are skipped and `robots.txt` disallows everything.
+
+When the site moves to its own domain, change `company.url` in `src/data/company.ts` and `openGraph.image` in `.figma/make/site.json` to the new address (a test fails if the two disagree).
+
 ## Before going live
 
-- Set `openGraph.image` in `.figma/make/site.json` to a full address, for example `https://yourdomain.com/og-image.jpg`, so social previews work.
-- `robots.index` in the same file is `true`; set it to `false` for a private preview.
+- Confirm the site address in `company.url` is the final one (see "Search engines").
+- `robots.index` in `.figma/make/site.json` is `true`; set it to `false` for a private preview.
+- Claim the Google Business Profile, then add the site to Google Search Console and submit `sitemap.xml`.
+- Make sure the address and phone numbers on the site, Facebook page and Google Business Profile match exactly.
 - Confirm the team members' names and titles and that they agree to appear, or hide the team block.
 - Send a test inquiry on the live site and confirm the notification email arrives.
 - Check the Facebook message link (`https://m.me/sphere8construction`) on the live site.
@@ -102,7 +121,7 @@ The build output is a plain static site in `dist/`. The repository includes `net
 
 1. In Netlify choose **Add new site, Import an existing project** and connect the GitHub repository.
 2. Build command `pnpm build`, publish directory `dist`, Node 22 (already set in `netlify.toml`).
-3. After the first deploy, set up the form notification (see above), add your domain, and replace the share image address in `.figma/make/site.json`.
+3. After the first deploy, set up the form notification (see above). If you add your own domain, update `company.url` and the share image address (see "Search engines").
 
 No redirects are needed, because the page has no client-side routes.
 

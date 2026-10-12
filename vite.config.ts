@@ -4,10 +4,18 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
 import siteConfiguration from './.figma/make/site.json'
+import {
+  absoluteUrl,
+  buildRobotsTxt,
+  buildSitemap,
+  buildStructuredData,
+  jsonLdScript,
+  socialImage,
+} from './src/lib/seo.ts'
 
 
 // Vite config — https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, isSsrBuild }) => {
   // .figma/make/deploy-preview passes `--mode development` for cached-preview builds.
   const emitSourcemaps = mode === 'development'
 
@@ -16,11 +24,14 @@ export default defineConfig(({ mode }) => {
     build: {
       sourcemap: emitSourcemaps ? 'inline' : false,
       minify: !emitSourcemaps,
+      // The server build only feeds scripts/prerender.mjs; it needs no public files.
+      copyPublicDir: !isSsrBuild,
     },
     plugins: [
 react(),
       tailwindcss(),
       figmaSiteConfiguration(siteConfiguration),
+      seoHead(siteConfiguration),
       figmaErrorOverlayReplay(),
       figmaReactRefreshBoundaryFallback(),
       figmaMakeKitPlugin({ storiesGlob: '/src/**/*.stories.{ts,tsx,js,jsx}' }),
@@ -214,6 +225,64 @@ function figmaSiteConfiguration(config: FigmaSiteConfiguration): Plugin {
           tags,
         }
       },
+    },
+  }
+}
+
+/**
+ * Search and sharing metadata that site.json has no fields for: canonical
+ * link, Open Graph details, structured data, sitemap.xml and robots.txt. The
+ * address comes from `company.url` in src/data/company.ts. Stays silent when
+ * site.json turns indexing off, so private previews are not advertised.
+ */
+function seoHead(config: FigmaSiteConfiguration): Plugin {
+  const indexable = config.robots?.index !== false
+  const description = config.description ?? ''
+  const hasImage = Boolean(config.openGraph?.image)
+  let isServerBuild = false
+
+  return {
+    name: 'seo-head',
+    configResolved(resolved) {
+      isServerBuild = Boolean(resolved.build.ssr)
+    },
+    generateBundle() {
+      if (!indexable || isServerBuild) return
+
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: buildSitemap() })
+      this.emitFile({ type: 'asset', fileName: 'robots.txt', source: buildRobotsTxt() })
+    },
+    transformIndexHtml() {
+      if (!indexable) return
+
+      const meta = (attrs: Record<string, string>): HtmlTagDescriptor => ({
+        tag: 'meta',
+        attrs,
+        injectTo: 'head',
+      })
+      const tags: HtmlTagDescriptor[] = [
+        { tag: 'link', attrs: { rel: 'canonical', href: absoluteUrl('/') }, injectTo: 'head' },
+        meta({ name: 'robots', content: 'index, follow, max-image-preview:large' }),
+        meta({ property: 'og:type', content: 'website' }),
+        meta({ property: 'og:url', content: absoluteUrl('/') }),
+        meta({ property: 'og:site_name', content: config.title?.split(' | ')[0] ?? '' }),
+        meta({ property: 'og:locale', content: 'en_PH' }),
+      ]
+      if (hasImage) {
+        tags.push(
+          meta({ property: 'og:image:width', content: String(socialImage.width) }),
+          meta({ property: 'og:image:height', content: String(socialImage.height) }),
+          meta({ property: 'og:image:alt', content: socialImage.alt }),
+          meta({ name: 'twitter:image:alt', content: socialImage.alt }),
+        )
+      }
+      tags.push({
+        tag: 'script',
+        attrs: { type: 'application/ld+json' },
+        children: jsonLdScript(buildStructuredData(description)),
+        injectTo: 'head',
+      })
+      return tags
     },
   }
 }

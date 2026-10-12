@@ -1,7 +1,20 @@
 export const company = {
   name: "Sphere8 Construction Corp.",
+  // Public address of the site. Used for the canonical link, share previews,
+  // structured data and the sitemap. Change it here when a custom domain is
+  // connected, then update openGraph.image in .figma/make/site.json to match.
+  url: "https://spehere8construction.netlify.app",
   city: "Lucena City, Philippines",
   address: "517 Quezon Blvd., Brgy. Gulang-Gulang, Lucena City",
+  location: {
+    street: "517 Quezon Blvd., Brgy. Gulang-Gulang",
+    locality: "Lucena City",
+    region: "Quezon",
+    country: "PH",
+  },
+  // Places named in the hero copy ("from Lucena City to Laguna, Bulacan and
+  // Metro Manila").
+  areaServed: ["Lucena City", "Laguna", "Bulacan", "Metro Manila"],
   emails: ["sphere8construction@gmail.com", "dedr.design@gmail.com"],
   phones: [
     { label: "(042) 373-3695", href: "tel:+63423733695", kind: "Landline" },
