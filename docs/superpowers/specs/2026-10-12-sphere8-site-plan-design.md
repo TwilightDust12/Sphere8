@@ -24,7 +24,7 @@ Audience: homeowners and small commercial or industrial clients in Lucena City, 
 - Credentials shown as text facts only. The SEC registration number is not shown. The permit and certificate images are never published (they carry QR codes, signatures and a principal address that looks like a residence).
 - Real social accounts supplied by the client: Facebook `https://www.facebook.com/sphere8construction`, YouTube `https://www.youtube.com/@sphere8construction`.
 - `robots.index: false` in `.figma/make/site.json` stays until the client decides to launch.
-- No role claims on photos (designed vs built) until the client confirms each one.
+- Role labels come from the company profile's own section dividers (see section 6, "Roles"). Nothing is labelled "built by Sphere8" outside the profile's Construction Contract and Sub-Contract sections, because the project list credits other contractors and architects on many entries.
 
 ## 3. Page structure
 
@@ -46,7 +46,6 @@ Cross-page rules:
 - No em-dashes or en-dashes in visible UI copy. Use hyphens, commas or line breaks. Project names taken from source documents are normalised to hyphens.
 - No decorative status dots, no "Concept Study" tags, no scroll cues, no version labels, no pills overlaid on photos.
 - No numbered section eyebrows. The only numbers on the page are content: the three Process steps and the proof-strip figures.
-- Role labels on gallery photos read "Project experience" until confirmed per project.
 
 ## 4. Visual system
 
@@ -79,7 +78,7 @@ Icons: none required. Arrows already exist in `Arrow` and are not extended. Soci
 
 Projects gallery
 - 12-column mosaic with varied spans and fixed aspect ratios, `object-fit: cover`, lazy loading, `srcset` for phones.
-- Filters: All, Residential, Interior, Resort, Industrial and structural, Design renders. `aria-pressed`, live counts, polite announcement of the filtered count, clear empty-state message.
+- Filters mirror the profile's own sections: All, Construction, Interiors, Engineering, Design renders. Each photo also shows its exact role label. `aria-pressed`, live counts, polite announcement of the filtered count, clear empty-state message.
 - Lightbox on native `<dialog>`: arrow keys, Esc, swipe on touch, visible close button, focus returns to the originating tile.
 - A failed image falls back to the placeholder with no layout shift (existing `onError` behaviour kept).
 
@@ -117,16 +116,29 @@ src/
 - Photos are copied from `assets/extracted/web/` to `public/images/projects/` as WebP at 1600px or less. Source SVGs and raw extractions stay in `assets/` and are never staged.
 - Gallery record: `id`, `title`, `location` (only where the source states it), `category`, `role`, `status?`, `src`, `alt`, `width`, `height`.
 
+Roles (taken from the divider slides in the profile)
+
+| Profile section (SVG pages) | Role label on the site | Filter |
+|---|---|---|
+| Construction Contract (2 to 11) | Construction contract | Construction |
+| Sub-Contract Project (12 to 13) | Sub-contract works | Construction |
+| Structural Design and Value Engineering (14 to 19) | Structural design and value engineering | Engineering |
+| Interior Fit Out Projects (20 to 21) | Interior fit-out | Interiors |
+| Interior Project (22 to 27) | Interior project | Interiors |
+| Architectural and Engineering Design (28 to 33) | Architectural and engineering design | Design renders |
+
 Curated photo set (about 2 to 3 MB total as WebP; filenames refer to `assets/extracted/web/`):
 
-| Group | Photos |
+| Role | Photos |
 |---|---|
-| Residential | `02-03`, `03-07`, `04-04`, `05-07`, `06-03`, `07-10` |
-| Interior | `04-10`, `11-07`, `22-04`, `23-10` |
-| Resort | `09-04`, `10-04` |
-| Fit-out | `20-04`, `21-09` |
-| Industrial and structural | `13-08`, `17-04` |
-| Design renders | `29-08`, `30-03`, `31-04`, `31-06`, `32-06`, `33-07` |
+| Construction contract | `02-03`, `03-07`, `04-04`, `05-07`, `06-03`, `07-10`, `09-04`, `10-04`, `11-07` |
+| Sub-contract works | `13-08` |
+| Structural design and value engineering | `15-05` (WWAM warehouses), `16-04` (Glacier South Phase 4), `17-04` (MCVI warehouse steel frame) |
+| Interior fit-out | `20-04`, `21-09` |
+| Interior project | `22-04`, `23-10` |
+| Architectural and engineering design | `29-08`, `30-03`, `31-04`, `31-06`, `32-06`, `33-07` |
+
+Corrections taken from the profile's project list: the warehouse complex is **WWAM** (Worldwide Apparel Mfg. Inc., San Pedro City, Laguna), not "WAM"; Glacier South Cold Storage appears as Phase 3 and Phase 4. Entries where another contractor or architect is credited (for example Building Blocks Construction Corp., JMAX Builders, Archtrike, Archt. Lorna Perea) are shown as Sphere8's design or engineering role only, with the credit kept where the profile states it.
 
 Design renders are in-house work of the Vice President (Administration and Design), shown with their own studio mark (the `dedr.design` brand already listed in the company contacts). They are labelled "Design render" so visitors do not read them as finished buildings.
 
@@ -144,7 +156,7 @@ Excluded: all certificate, permit and profile-slide images.
 
 ## 8. Open items for the client
 
-1. Which projects Sphere8 designed, engineered or built, so role labels can be specific.
+1. Resolved: roles come from the profile's own section dividers (section 6). Remaining check: confirm every photo under the Construction Contract divider was built by Sphere8 as main contractor.
 2. Whether the owner and VPs agree to appear (Team block flag).
 3. Whether to add or remove photos from the curated set, and confirmation of permissions for client-home interiors.
 4. When to switch `robots.index` to `true`.
