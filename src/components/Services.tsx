@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { services } from "../data/company"
 import { useReveal } from "../hooks/useReveal"
+import { stagger } from "../lib/motion"
 import { photoUrl } from "../lib/assets"
 
 export default function Services() {
@@ -13,8 +14,8 @@ export default function Services() {
       className="services on-dark"
       aria-labelledby="services-title"
     >
-      <div className="wrap reveal" ref={ref}>
-        <h2 id="services-title" className="big">
+      <div className="wrap reveal-scope" ref={ref}>
+        <h2 id="services-title" className="big reveal-item" style={stagger(0)}>
           From concept <span>to construction.</span>
         </h2>
         <div className="svc-layout">
@@ -22,7 +23,10 @@ export default function Services() {
             {services.map((service, index) => (
               <li
                 key={service.n}
-                className={`svc${active === index ? " is-active" : ""}`}
+                style={stagger(index + 1)}
+                className={`svc reveal-item${
+                  active === index ? " is-active" : ""
+                }`}
                 onMouseEnter={() => setActive(index)}
                 onFocusCapture={() => setActive(index)}
               >

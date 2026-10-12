@@ -10,6 +10,7 @@ import {
 } from "../data/gallery"
 import { experienceGroups } from "../data/experience"
 import { useReveal } from "../hooks/useReveal"
+import { stagger } from "../lib/motion"
 import { photoSrcSet, photoUrl } from "../lib/assets"
 import Lightbox from "./Lightbox"
 import Placeholder from "./Placeholder"
@@ -84,15 +85,15 @@ export default function Projects() {
       className="projects"
       aria-labelledby="projects-title"
     >
-      <div className="wrap reveal" ref={ref}>
-        <h2 id="projects-title" className="big">
+      <div className="wrap reveal-scope" ref={ref}>
+        <h2 id="projects-title" className="big reveal-item" style={stagger(0)}>
           Different scales. <span>Same detail.</span>
         </h2>
-        <p className="projects-intro">
+        <p className="projects-intro reveal-item" style={stagger(1)}>
           Built, engineered and designed work from our company profile.
         </p>
 
-        <div className="filter-bar">
+        <div className="filter-bar reveal-item" style={stagger(2)}>
           <div className="filters" role="group" aria-label="Filter projects">
             {filters.map((item) => (
               <button

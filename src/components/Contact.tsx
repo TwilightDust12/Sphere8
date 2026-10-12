@@ -17,6 +17,7 @@ import {
   type InquiryField,
 } from "../lib/inquiry"
 import { useReveal } from "../hooks/useReveal"
+import { stagger } from "../lib/motion"
 import Arrow from "./Arrow"
 
 const fieldOrder: InquiryField[] = [
@@ -105,13 +106,22 @@ export default function Contact() {
       className="contact on-dark"
       aria-labelledby="contact-title"
     >
-      <div className="wrap reveal" ref={ref}>
-        <h2 id="contact-title" className="big contact-title">
+      <div className="wrap reveal-scope" ref={ref}>
+        <h2
+          id="contact-title"
+          className="big contact-title reveal-item"
+          style={stagger(0)}
+        >
           Let’s build what’s <span>next.</span>
         </h2>
 
         <div className="contact-grid">
-          <form className="inquiry" onSubmit={onSubmit} noValidate>
+          <form
+            className="inquiry reveal-item"
+            style={stagger(1)}
+            onSubmit={onSubmit}
+            noValidate
+          >
             <Field id="inq-name" label="Your name" error={errors.name}>
               <input
                 id="inq-name"
@@ -218,7 +228,7 @@ export default function Contact() {
             )}
           </form>
 
-          <div className="contact-info">
+          <div className="contact-info reveal-item" style={stagger(2)}>
             <span className="c-label mono">Email</span>
             {company.emails.map((email) => (
               <a className="c-link" href={`mailto:${email}`} key={email}>

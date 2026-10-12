@@ -6,8 +6,7 @@ export function useReveal<T extends HTMLElement>(): RefObject<T | null> {
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    if (reduce || typeof IntersectionObserver === "undefined") {
+    if (typeof IntersectionObserver === "undefined") {
       el.classList.add("is-visible")
       return
     }
