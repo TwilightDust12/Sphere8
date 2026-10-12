@@ -33,7 +33,7 @@ Audience: homeowners and small commercial or industrial clients in Lucena City, 
 | 1 | Hero | Red, asymmetric split. Giant uppercase headline left, finished-house photo right with hard offset frame. Headline, one line of copy, two CTAs, nothing else | `04-04` |
 | 2 | Proof strip | Four ruled cells: "2020" established; "SEC" registered January 3, 2020; "General Contractors" licensed in Lucena City; "3" disciplines (design, engineering, construction). No permit expiry dates | none |
 | 3 | Services | Charcoal. Three bordered rows; a photo swaps in beside the list on hover or focus | interior, structural, residential |
-| 4 | Projects | Asymmetric 12-column mosaic of real photos, category filter, lightbox | about 16 curated photos |
+| 4 | Projects | Asymmetric 12-column mosaic of real photos, category filter, lightbox | about 22 curated photos |
 | 5 | Process | Three bordered steps: Plan, Coordinate, Build | none |
 | 6 | Team | Ruled row: owner and two VPs. Behind a flag, off until the people agree to appear | profile slides, only if approved |
 | 7 | Contact and footer | Charcoal. Form left, call and email links right. Footer with Facebook and YouTube text links | none |
@@ -79,7 +79,7 @@ Icons: none required. Arrows already exist in `Arrow` and are not extended. Soci
 
 Projects gallery
 - 12-column mosaic with varied spans and fixed aspect ratios, `object-fit: cover`, lazy loading, `srcset` for phones.
-- Filters: All, Residential, Interior, Resort, Industrial and structural. `aria-pressed`, live counts, polite announcement of the filtered count, clear empty-state message.
+- Filters: All, Residential, Interior, Resort, Industrial and structural, Design renders. `aria-pressed`, live counts, polite announcement of the filtered count, clear empty-state message.
 - Lightbox on native `<dialog>`: arrow keys, Esc, swipe on touch, visible close button, focus returns to the originating tile.
 - A failed image falls back to the placeholder with no layout shift (existing `onError` behaviour kept).
 
@@ -117,7 +117,7 @@ src/
 - Photos are copied from `assets/extracted/web/` to `public/images/projects/` as WebP at 1600px or less. Source SVGs and raw extractions stay in `assets/` and are never staged.
 - Gallery record: `id`, `title`, `location` (only where the source states it), `category`, `role`, `status?`, `src`, `alt`, `width`, `height`.
 
-Curated photo set (about 1 to 2 MB total as WebP; filenames refer to `assets/extracted/web/`):
+Curated photo set (about 2 to 3 MB total as WebP; filenames refer to `assets/extracted/web/`):
 
 | Group | Photos |
 |---|---|
@@ -126,8 +126,11 @@ Curated photo set (about 1 to 2 MB total as WebP; filenames refer to `assets/ext
 | Resort | `09-04`, `10-04` |
 | Fit-out | `20-04`, `21-09` |
 | Industrial and structural | `13-08`, `17-04` |
+| Design renders | `29-08`, `30-03`, `31-04`, `31-06`, `32-06`, `33-07` |
 
-Excluded: 3D renders `28` to `33` (another studio's watermark, rights unconfirmed); all certificate, permit and profile-slide images.
+Design renders are in-house work of the Vice President (Administration and Design), shown with their own studio mark (the `dedr.design` brand already listed in the company contacts). They are labelled "Design render" so visitors do not read them as finished buildings.
+
+Excluded: all certificate, permit and profile-slide images.
 
 ## 7. Verification
 
@@ -145,7 +148,7 @@ Excluded: 3D renders `28` to `33` (another studio's watermark, rights unconfirme
 2. Whether the owner and VPs agree to appear (Team block flag).
 3. Whether to add or remove photos from the curated set, and confirmation of permissions for client-home interiors.
 4. When to switch `robots.index` to `true`.
-5. Rights status of the 3D renders if they should be used later.
+5. Confirm the VP is happy for the design renders and their studio mark to appear, and whether the clients depicted need to approve.
 
 ## 9. Delivery
 
