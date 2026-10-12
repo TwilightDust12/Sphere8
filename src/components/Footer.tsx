@@ -14,7 +14,7 @@ export default function Footer() {
             alt="Sphere8 Construction Corp."
           />
         </a>
-        <span>
+        <span suppressHydrationWarning>
           © {new Date().getFullYear()} {company.name}
         </span>
         <nav aria-label="Footer navigation">

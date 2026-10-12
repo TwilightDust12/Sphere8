@@ -7,11 +7,11 @@
     "addBypassLinks": false,
     "ignoreReducedMotion": false
   },
-  "title": "Sphere8 Construction Corp. | Design & Build",
+  "title": "Sphere8 Construction Corp. | Design & Build in Lucena City",
   "icons": {
     "icon": "/favicon.png"
   },
   "openGraph": {
-    "image": "/og-image.jpg"
+    "image": "https://spehere8construction.netlify.app/og-image.jpg"
   }
 }
