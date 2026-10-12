@@ -148,7 +148,7 @@ Excluded: all certificate, permit and profile-slide images.
 2. Whether the owner and VPs agree to appear (Team block flag).
 3. Whether to add or remove photos from the curated set, and confirmation of permissions for client-home interiors.
 4. When to switch `robots.index` to `true`.
-5. Confirm the VP is happy for the design renders and their studio mark to appear, and whether the clients depicted need to approve.
+5. Resolved: the design renders already appear in the company profile that is shared with clients, so the client considers them fine to show on the website.
 
 ## 9. Delivery
 
