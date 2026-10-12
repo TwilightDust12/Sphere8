@@ -1,21 +1,43 @@
+# Dependencies and build output
 node_modules/
 dist/
 build/
-.cache/
-.env*
 .vite/
+.cache/
+.tmp-*
 vite.config.*.timestamp-*
 *.tsbuildinfo
-*-debug.log*
+
+# Environment files (keep a template if one is ever added)
+.env*
+!.env.example
+
+# Logs
 logs/
 *.log
-.claude-replay.*
-.tmp-*
-/.figma/design-context/
+*-debug.log*
 
-# Platform-managed agentplat state, not project source. In the
+# OS and editor files
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Local tooling and AI-assistant working files
+.claude/
+.claude-replay.*
+.impeccable/
+.superpowers/
+
+# Large source material: original SVG exports and raw image extractions.
+# Only the optimised WebP files in public/images/projects are part of the site.
+/assets/
+
+# Figma Make and platform-managed state, not project source. In the
 # client-initiated single-repo workspace layout (make's `Path: "."` spec) the
 # repo root IS the workspace root, so these land inside this repo rather than
 # beside it.
+/.figma/design-context/
 /.plugins/
 /.opencode-skills/
