@@ -103,6 +103,6 @@ export const team = {
       name: "Ar. Donica Elden D. Reyes",
       title: "Vice President, Administration & Design",
     },
-    { name: "Engr. Pedro Reyes", title: "Vice President, Marketing" },
+    { name: "Engr. Pedrito Reyes", title: "Vice President, Marketing" },
   ],
 }
