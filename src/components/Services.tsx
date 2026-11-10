@@ -1,13 +1,11 @@
-import { useState } from "react"
 import { services } from "../data/company"
 import { useReveal } from "../hooks/useReveal"
 import { stagger } from "../lib/motion"
 import { photoSrcSet, photoUrl } from "../lib/assets"
+import Arrow from "./Arrow"
 
 export default function Services() {
-  const [active, setActive] = useState(0)
   const ref = useReveal<HTMLDivElement>()
-
   return (
     <section
       id="services"
@@ -15,59 +13,59 @@ export default function Services() {
       aria-labelledby="services-title"
     >
       <div className="wrap reveal-scope" ref={ref}>
-        <h2 id="services-title" className="big reveal-item" style={stagger(0)}>
-          From concept <span>to construction.</span>
-        </h2>
-        <div className="svc-layout">
-          <ul className="svc-list">
-            {services.map((service, index) => (
-              <li
-                key={service.n}
-                style={stagger(index + 1)}
-                className={`svc reveal-item${
-                  active === index ? " is-active" : ""
-                }`}
-                onMouseEnter={() => setActive(index)}
-                onFocusCapture={() => setActive(index)}
-              >
+        <div className="section-kicker mono">
+          <span>02 / Our expertise</span>
+          <span>From the ground up.</span>
+        </div>
+        <div className="section-heading">
+          <h2
+            id="services-title"
+            className="big reveal-item"
+            style={stagger(0)}
+          >
+            Every part.
+            <br />
+            <span>One considered whole.</span>
+          </h2>
+          <p>
+            Design gives it purpose. Engineering gives it strength. Construction
+            brings it to life.
+          </p>
+        </div>
+        <div className="expertise-list">
+          {services.map((service, index) => (
+            <article
+              className="expertise-row reveal-item"
+              style={stagger(index + 1)}
+              key={service.n}
+            >
+              <div className="expertise-copy">
+                <span className="expertise-number mono">/ {service.n}</span>
                 <h3>{service.title}</h3>
                 <p>{service.text}</p>
-                <ul className="svc-items">
+                <ul>
                   {service.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
+                <a className="u-link" href="#contact">
+                  Let’s talk about your project <Arrow diagonal />
+                </a>
+              </div>
+              <figure>
                 <img
-                  className="svc-thumb"
                   src={photoUrl(service.photo)}
                   srcSet={photoSrcSet(service.photo, service.photoWidth)}
-                  sizes="(min-width: 1001px) 40vw, 100vw"
+                  sizes="(min-width: 900px) 45vw, 100vw"
                   alt={service.photoAlt}
                   loading="lazy"
                 />
-                <a
-                  className="u-link"
-                  href="#projects"
-                  aria-label={`${service.title}: see related work`}
-                >
-                  See related work
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div className="svc-preview" aria-hidden="true">
-            {services.map((service, index) => (
-              <img
-                key={service.n}
-                className={active === index ? "is-active" : ""}
-                src={photoUrl(service.photo)}
-                srcSet={photoSrcSet(service.photo, service.photoWidth)}
-                sizes="38vw"
-                alt=""
-                loading="lazy"
-              />
-            ))}
-          </div>
+                <figcaption className="mono">
+                  Sphere8 / {service.title}
+                </figcaption>
+              </figure>
+            </article>
+          ))}
         </div>
       </div>
     </section>

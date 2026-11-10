@@ -133,6 +133,10 @@ export default function Contact() {
       aria-labelledby="contact-title"
     >
       <div className="wrap reveal-scope" ref={ref}>
+        <div className="section-kicker mono">
+          <span>05 / Your next chapter</span>
+          <span>It starts with a conversation.</span>
+        </div>
         <h2
           id="contact-title"
           className="big contact-title reveal-item"

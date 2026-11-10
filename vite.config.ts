@@ -22,6 +22,9 @@ export default defineConfig(({ mode, isSsrBuild }) => {
   return {
     base: process.env.FIGMA_PUBLIC_URL ? `${process.env.FIGMA_PUBLIC_URL}/` : '/',
     build: {
+      rollupOptions: isSsrBuild ? undefined : {
+        input: { main: path.resolve(__dirname, 'index.html'), styleTile: path.resolve(__dirname, 'style-tile.html') },
+      },
       sourcemap: emitSourcemaps ? 'inline' : false,
       minify: !emitSourcemaps,
       // The server build only feeds scripts/prerender.mjs; it needs no public files.

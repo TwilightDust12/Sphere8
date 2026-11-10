@@ -22,6 +22,7 @@ export default function Team() {
               style={stagger(index + 1)}
               key={member.name}
             >
+              <span className="team-index mono">0{index + 1} / Leadership</span>
               <strong>{member.name}</strong>
               <span>{member.title}</span>
             </li>

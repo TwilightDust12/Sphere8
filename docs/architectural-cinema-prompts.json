@@ -1,0 +1,20 @@
+{
+  "finishedHouse": {
+    "jobId": "c9beae2e-0dc3-4e01-9ef8-10efff0fbc9d",
+    "model": "gpt_image_2_6",
+    "prompt": "Create one exquisite photorealistic architectural visualization, 16:9 wide. A complete two-storey contemporary tropical Filipino home, composed of simple intersecting horizontal volumes, pale warm concrete, vertical timber screens, dark bronze frames, expansive glazing, wide flat roof overhangs, subtle planting. Three-quarter front view, fixed eye-level camera slightly elevated, 50mm architectural lens, perfectly straight verticals. Entire house fully within frame, centered slightly right, occupies right 65 percent with generous empty warm ivory #F3F0E9 space at left and above for website text. House stands on a subtle pale limestone rectangular plot that dissolves into an infinite warm ivory studio background, no streets or neighboring buildings. Refined realistic materials and soft contact shadows, late afternoon light with welcoming amber interior lighting, restrained sophistication, architectural editorial magazine quality. Not a toy, not an isometric icon. No text, no labels, no logos, no people, no watermarks. Keep large negative space at left. This will be the exact final frame of a house construction sequence."
+  },
+  "drawing": {
+    "jobId": "888cb4c2-e68e-4eca-a916-8dbe337b81ae",
+    "model": "gpt_image_2_6",
+    "reference": "finishedHouse",
+    "prompt": "Transform the supplied house reference into a precise, delicate architectural wireframe drawing. EXACTLY preserve the house geometry, camera position, framing, scale and location in the image. The house is only very fine warm graphite linework, no solid walls, no rendered material, no filled surfaces, no interior lights, no planting; faint ground-plane construction guides and foundation outline. Keep the full ivory #F3F0E9 background and all empty left/top space. A sophisticated architectural drawing on warm paper, with very subtle perspective construction lines. NO text, NO lettering, NO dimensions, NO numbers, NO logos. This is the starting frame of the exact same building assembling into the reference finished house."
+  },
+  "construction": {
+    "jobId": "9db511c7-93c2-44ff-89f0-0f94221611e6",
+    "model": "seedance_2_5",
+    "duration": 10,
+    "resolution": "720p",
+    "prompt": "One continuous 10-second architectural construction film, absolutely locked camera and framing matching the starting and ending reference images. Begin exactly on the delicate wireframe of this house. 0-2 seconds: foundation and ground slab gently become solid pale concrete, structural columns rise from the ground along the drawing lines. 2-5 seconds: beams and upper slab assemble, walls grow upward, the cantilever roof slides into its exact final position. 5-8 seconds: glass panes settle into bronze frames, vertical timber screens resolve slat by slat, stone surfaces and planting appear. 8-10 seconds: reveal the exact finished house in the end reference with warm interior lamps illuminating softly, then hold still. The architectural drawing guides disappear progressively as the solid house takes their place. Sophisticated believable material assembly, continuous smooth motion, fine construction detail, no cuts, no dissolves between unrelated houses, no spinning, no camera orbit, no zoom, no workers. Preserve geometry and object placement. Preserve empty left space and ivory studio ground/background throughout. No text, logos or watermarks. Full house stays in view. Silent."
+  }
+}

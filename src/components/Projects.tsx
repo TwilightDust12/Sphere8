@@ -100,11 +100,18 @@ export default function Projects() {
       aria-labelledby="projects-title"
     >
       <div className="wrap reveal-scope" ref={ref}>
+        <div className="section-kicker mono">
+          <span>01 / Selected work</span>
+          <span>Ideas, made tangible.</span>
+        </div>
         <h2 id="projects-title" className="big reveal-item" style={stagger(0)}>
-          Houses to warehouses. <span>Same detail.</span>
+          Different spaces.
+          <br />
+          <span>The same care.</span>
         </h2>
         <p className="projects-intro reveal-item" style={stagger(1)}>
-          Built, engineered and designed work from our company profile.
+          Homes to grow into. Places to work. Spaces to gather. Explore our
+          construction, design and engineering work.
         </p>
 
         <div className="filter-bar reveal-item" style={stagger(2)}>

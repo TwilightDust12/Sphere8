@@ -1,0 +1,37 @@
+{
+  "finishedHouse": {
+    "jobId": "62a80536-885f-41de-8a2a-2b3432a631e4",
+    "model": "gpt_image_2_6",
+    "quality": "high",
+    "resolution": "2k",
+    "aspectRatio": "9:16",
+    "referenceJobId": "c9beae2e-0dc3-4e01-9ef8-10efff0fbc9d",
+    "prompt": "Recompose this EXACT contemporary tropical house as a portrait 9:16 architectural cinema frame for a mobile website. Preserve its precise two-storey geometry, pale concrete, bronze glazing, timber screen, plants, warm interior lights and three-quarter front camera angle. Entire house including roof, base and trees must fit fully within horizontal 10%-90% of the frame. Center house horizontally; house occupies vertical 25%-62% of the image. Top quarter and bottom third are completely empty warm ivory #ede4d9 negative space for webpage navigation and headline (DO NOT render text). Continuous seamless warm ivory studio background and ground fill every edge, no rectangle, frame, panel, horizon, border, paper edge or vignette. Beautiful detailed architectural photograph, crisp material detail, same warm afternoon light. No text, logo, people or watermark. This is a mobile recomposition of the exact same building, not a new design."
+  },
+  "drawing": {
+    "jobId": "a382c104-e521-45cb-a908-be0cc3f254f1",
+    "model": "gpt_image_2_6",
+    "quality": "high",
+    "resolution": "2k",
+    "aspectRatio": "9:16",
+    "referenceJobId": "62a80536-885f-41de-8a2a-2b3432a631e4",
+    "prompt": "Transform this exact portrait house image into a refined architectural wireframe drawing. EXACTLY preserve the camera, framing, scale, house position, dimensions and geometry. Only fine warm graphite linework for all walls, roof, glazing and timber screens, with delicate foundation outlines. Remove all solid material, light and plants. The full warm ivory seamless studio environment must continue to all four edges, same background color as reference. Do not add any paper panel, horizon or border. Keep the same generous blank areas above and below the house. No text, dimensions, labels, numbers or watermark. This is the first frame of the exact reference house assembling."
+  },
+  "portraitVideo": {
+    "status": "not_generated",
+    "reason": "Out of credits on plus (monthly) plan in Private workspace.",
+    "model": "seedance_2_5",
+    "duration": 8,
+    "resolution": "1080p",
+    "estimatedCredits": 128,
+    "userDecision": "Use portrait stills for now"
+  },
+  "delivery": {
+    "width": 1080,
+    "height": 1920,
+    "format": "webp",
+    "quality": 88,
+    "posterBytes": 52044,
+    "finishedBytes": 129324
+  }
+}
