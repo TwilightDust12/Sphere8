@@ -8,15 +8,15 @@ Built with React 19, Vite 8 and Tailwind CSS v4. It is a static site with no bac
 
 | Section | Notes |
 |---|---|
-| Hero | Headline, one-line summary, two calls to action and a project photo |
+| Hero | Desktop construction animation; dedicated portrait drawing-to-finished still story on mobile |
 | About / proof strip | Established 2020, SEC-registered January 3, 2020, licensed general contractors |
-| Services | Construction and development, design and engineering, project management, with a photo that swaps on hover or focus |
+| Services | Three numbered editorial photo/text chapters: construction, design and project management |
 | Projects | 25 photos with role labels taken from the company profile, filters, lightbox and a curated default set of 12 |
 | More project experience | Full list from the profile, with client and contractor credits |
 | Process | Plan, Coordinate, Build |
 | Team | Can be switched off (see below) |
 | Contact | Inquiry form (Netlify Forms, with an email-draft fallback), call and email links, Facebook message link, map link |
-| Mobile bar | Fixed "Call us / Start a project" bar on phones and tablets |
+| Mobile navigation | Fixed brand and hamburger with accessible links; contact bar retained only on wider tablets |
 
 ## Getting started
 
@@ -80,7 +80,24 @@ Set `team.visible` to `false` to hide the team section.
 
 **Site address (canonical link, sitemap, structured data)**: `company.url` in `src/data/company.ts`.
 
-**Colours, type and spacing**: tokens at the top of `src/index.css`.
+**Colours, type and spacing**: tokens at the top of `src/index.css`; redesign treatments in `src/cinema.css`. The editable visual reference is `style-tile.html`, available at `/style-tile.html` in development and production preview.
+
+**Construction story**: chapter copy in `src/data/story.ts`, scroll mapping in `src/lib/story.ts`, rendering in `src/components/StoryCanvas.tsx`, and preference handling in `src/hooks/useStoryProgress.ts`. The 181-frame WebP sequence in `public/story/frames` totals 4.1 MB at 1280 by 720. `public/story/manifest.json` defines its paths. Reduced motion, data saver and short screens use flowing still-image chapters. The generated house is labeled as a process illustration.
+
+At widths up to 900px, the same website selects portrait assets in `public/story/mobile/` through responsive pictures. The mobile experience currently uses normal page flow and two 1080x1920 stills, as requested after the portrait video generation was rejected for insufficient credits. `mobileSequence` stays null until actual footage exists and is verified. Phones request no desktop animation frames. The opening poster is 52,044 bytes and final reveal is 129,324 bytes (181,368 bytes combined); these are file sizes, not loading-speed measurements.
+
+Original generated media is saved locally in gitignored `assets/story/`. Generation prompts and job IDs are recorded in `docs/architectural-cinema-prompts.json`; validation and tradeoffs are in `docs/architectural-cinema-production.md`. The source video is 720p, so it retains some softness on high-density displays; the desktop presentation is capped at 1100px to limit enlargement.
+
+Optional Chrome regression checks use an isolated browser profile and do not submit real inquiries:
+
+```bash
+npm install --prefix .cache/browser --no-package-lock --no-save puppeteer-core
+npm run preview -- --host 127.0.0.1 --port 8444
+node scripts/verify-browser.mjs
+node scripts/verify-mobile.mjs
+```
+
+Set `BROWSER_PATH` for a different installed Chrome/Chromium executable and `BASE_URL` for another preview address. Screenshots are written to `.cache/verification/` and `.cache/mobile/`.
 
 ## The inquiry form
 

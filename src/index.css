@@ -20,14 +20,14 @@
 }
 
 @theme {
-  --color-canvas: #f2f2ef;
-  --color-paper: #fafaf8;
-  --color-ink: #1c1d1b;
+  --color-canvas: #f3f0e9;
+  --color-paper: #faf8f3;
+  --color-ink: #242722;
   --color-brand: #ce3027;
   --color-brand-light: #f0584e;
-  --color-muted: #5b5d57;
+  --color-muted: #62665d;
   --color-muted-on-ink: #b4b6ad;
-  --color-line: #d2d2cc;
+  --color-line: #d8d6cc;
   --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, monospace;
@@ -35,7 +35,7 @@
 
 :root {
   --pad: clamp(20px, 4.4vw, 64px);
-  --header: 64px;
+  --header: 88px;
   /* page gutter: matches the centred 1520px content column, so the header lines up with the content */
   --gutter: max(var(--pad), calc((100vw - 1520px) / 2 + var(--pad)));
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);

@@ -1,0 +1,8 @@
+{
+  "frameCount": 181,
+  "width": 1280,
+  "height": 720,
+  "fps": 18,
+  "pattern": "story/frames/frame-{frame}.webp",
+  "poster": "story/poster.webp"
+}
