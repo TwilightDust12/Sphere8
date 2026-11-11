@@ -1,6 +1,6 @@
 import test from "node:test"
 import assert from "node:assert/strict"
-import { existsSync } from "node:fs"
+import { existsSync, statSync } from "node:fs"
 import {
   FEATURED_COUNT,
   countByFilter,
@@ -33,12 +33,13 @@ test("every photo with an image has its files on disk", () => {
       import.meta.url,
     )
     assert.ok(existsSync(full), `${p.id}.webp is missing`)
-    if (p.width > 800) {
+    for (const width of [320, 480, 800].filter((width) => width < p.width)) {
       const small = new URL(
-        `../../public/images/projects/${p.id}-800.webp`,
+        `../../public/images/projects/${p.id}-${width}.webp`,
         import.meta.url,
       )
-      assert.ok(existsSync(small), `${p.id}-800.webp is missing`)
+      assert.ok(existsSync(small), `${p.id}-${width}.webp is missing`)
+      assert.ok(statSync(small).size < statSync(full).size, `${p.id}-${width}.webp should be smaller than the full image`)
     }
   }
 })

@@ -56,7 +56,7 @@ export default function Services() {
                 <img
                   src={photoUrl(service.photo)}
                   srcSet={photoSrcSet(service.photo, service.photoWidth)}
-                  sizes="(min-width: 900px) 45vw, 100vw"
+                  sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1408px) 42vw, 600px"
                   alt={service.photoAlt}
                   loading="lazy"
                 />

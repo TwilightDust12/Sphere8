@@ -255,6 +255,8 @@ try {
   await page.goto(base, { waitUntil: "networkidle0" })
   await page.setViewport({ width: 1440, height: 1000 })
   await page.waitForSelector('canvas[data-ready="true"]')
+  await page.evaluate(() => scrollTo({ top: 1800, behavior: "instant" }))
+  await page.waitForFunction(() => Number(document.querySelector("canvas").dataset.frame) > 0)
   assert.ok(requests.some((url) => url.includes("/story/frames/")))
   await page.setViewport({ width: 390, height: 844 })
   await pause(800)

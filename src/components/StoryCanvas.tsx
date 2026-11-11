@@ -51,7 +51,7 @@ export default function StoryCanvas({
     const pump = () => {
       if (stopped) return
       const targets = [desired]
-      for (let delta = 1; delta <= 6; delta++)
+      for (let delta = 1; delta <= (desired === 0 ? 0 : 6); delta++)
         targets.push(desired + delta, desired - delta)
       for (const frame of targets) {
         if (pending.size >= 3) break
@@ -68,8 +68,13 @@ export default function StoryCanvas({
         attempts.set(frame, (attempts.get(frame) ?? 0) + 1)
         const url =
           import.meta.env.BASE_URL +
-          manifest.pattern.replace("{frame}", String(frame).padStart(4, "0"))
-        fetch(url, { signal: controller.signal })
+          (frame === 0
+            ? manifest.poster
+            : manifest.pattern.replace("{frame}", String(frame).padStart(4, "0")))
+        fetch(url, {
+          signal: controller.signal,
+          priority: frame === desired ? "high" : "low",
+        })
           .then((response) => {
             if (!response.ok) throw new Error("Frame unavailable")
             return response.blob()
@@ -136,6 +141,13 @@ export default function StoryCanvas({
   return (
     <div className="story-visual has-sequence">
       <picture>
+        <source
+          media="(max-width: 900px)"
+          type="image/avif"
+          srcSet={import.meta.env.BASE_URL + "story/mobile/poster.avif"}
+          width={1080}
+          height={1920}
+        />
         <source
           media="(max-width: 900px)"
           srcSet={import.meta.env.BASE_URL + "story/mobile/poster.webp"}

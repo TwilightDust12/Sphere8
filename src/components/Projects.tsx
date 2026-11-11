@@ -38,9 +38,9 @@ function Tile({ photo, onOpen, onFail }: TileProps) {
           >
             <img
               className="tile-img"
-              src={photoUrl(photo.id, photo.width > 800)}
+              src={photoUrl(photo.id, photo.width > 800 ? 800 : undefined)}
               srcSet={photoSrcSet(photo.id, photo.width)}
-              sizes="(min-width: 768px) 50vw, 100vw"
+              sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1408px) 44vw, 608px"
               alt={photo.alt}
               width={photo.width}
               height={photo.height}
@@ -111,7 +111,9 @@ export default function Projects() {
             {photos.filter((photo) => photo.role === "construction" && !photo.placeholder).slice(0, 6).map((photo) => (
               <span className="project-orbit" key={photo.id}>
                 <img
-                  src={photoUrl(photo.id, true)}
+                  src={photoUrl(photo.id, 320)}
+                  srcSet={photo.width > 480 ? `${photoUrl(photo.id, 320)} 320w, ${photoUrl(photo.id, 480)} 480w` : undefined}
+                  sizes="152px"
                   alt=""
                   width={photo.width}
                   height={photo.height}

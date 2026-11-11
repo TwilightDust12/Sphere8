@@ -17,7 +17,7 @@ export default function ProofStrip() {
             <img
               src={photoUrl("17-04")}
               srcSet={photoSrcSet("17-04", 1004)}
-              sizes="(max-width: 600px) 100vw, 45vw"
+              sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1408px) 42vw, 600px"
               alt="Steel roof structure during construction"
               loading="lazy"
               width={1004}

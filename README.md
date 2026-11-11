@@ -72,7 +72,9 @@ docs/superpowers/         design spec and implementation plan
 **Contact details, services, steps, team**: `src/data/company.ts`.
 Set `team.visible` to `false` to hide the team section.
 
-**Add or reorder project photos**: put `<id>.webp` (max 1600px wide) in `public/images/projects/`, plus `<id>-800.webp` at 800px wide if the original is wider, then add a record to `src/data/gallery.ts`. The first `FEATURED_COUNT` (12) records are the default view, so keep the strongest first and keep at least one photo from every group among them. The tests check that every record has its files and that the featured set covers every filter.
+**Add or reorder project photos**: put `<id>.webp` (max 1600px wide) in `public/images/projects/`, plus 320px, 480px and 800px variants where the original is wider, then add a record to `src/data/gallery.ts`. The first `FEATURED_COUNT` (12) records are the default view, so keep the strongest first and keep at least one photo from every group among them. The tests check that every record has its files and that the featured set covers every filter.
+
+**Optimized assets**: run `python3 scripts/optimize-assets.py` with Pillow 13+ to regenerate 320px/480px project thumbnails, WebP logo derivatives and AVIF mobile story stills. Keep the original WebP and PNG files as full-size sources and browser fallbacks. Add the 800px variant separately when adding a larger photo. Browsers choose the image size needed for each layout; full-resolution photos remain available in the lightbox.
 
 **Photo roles and filters**: `roles` and `filters` in `src/data/gallery.ts`. Role labels follow the sections of the company profile, so avoid labelling anything "built by Sphere8" outside Construction contract and Sub-contract works.
 
@@ -84,7 +86,7 @@ Set `team.visible` to `false` to hide the team section.
 
 **Construction story**: chapter copy in `src/data/story.ts`, scroll mapping in `src/lib/story.ts`, rendering in `src/components/StoryCanvas.tsx`, and preference handling in `src/hooks/useStoryProgress.ts`. The 181-frame WebP sequence in `public/story/frames` totals 4.1 MB at 1280 by 720. `public/story/manifest.json` defines its paths. Reduced motion, data saver and short screens use flowing still-image chapters. The generated house is labeled as a process illustration.
 
-At widths up to 900px, the same website selects portrait assets in `public/story/mobile/` through responsive pictures. The mobile experience currently uses normal page flow and two 1080x1920 stills, as requested after the portrait video generation was rejected for insufficient credits. `mobileSequence` stays null until actual footage exists and is verified. Phones request no desktop animation frames. The opening poster is 52,044 bytes and final reveal is 129,324 bytes (181,368 bytes combined); these are file sizes, not loading-speed measurements.
+At widths up to 900px, the same website selects portrait assets in `public/story/mobile/` through responsive pictures. The mobile experience currently uses normal page flow and two 1080x1920 stills, as requested after the portrait video generation was rejected for insufficient credits. `mobileSequence` stays null until actual footage exists and is verified. Phones request no desktop animation frames. Modern browsers select AVIF versions totaling 99,444 bytes, with the original WebP pair (181,368 bytes combined) retained as fallbacks. These are file sizes, not loading-speed measurements.
 
 Original generated media is saved locally in gitignored `assets/story/`. Generation prompts and job IDs are recorded in `docs/architectural-cinema-prompts.json`; validation and tradeoffs are in `docs/architectural-cinema-production.md`. The source video is 720p, so it retains some softness on high-density displays; the desktop presentation is capped at 1100px to limit enlargement.
 

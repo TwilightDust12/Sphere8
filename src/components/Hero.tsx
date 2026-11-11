@@ -88,6 +88,13 @@ export default function Hero() {
           {chapters.slice(1).map((item, index) => (
             <article key={item.label}>
               <picture>
+                {index === 2 && (
+                  <source
+                    media="(max-width: 900px)"
+                    type="image/avif"
+                    srcSet={import.meta.env.BASE_URL + "story/mobile/finished.avif"}
+                  />
+                )}
                 <source
                   media="(max-width: 900px)"
                   srcSet={

@@ -8,9 +8,11 @@ export default function Footer() {
         <a href="#home" aria-label="Sphere8 home">
           <img
             className="footer-logo"
-            src={brandUrl("logo-black.png")}
-            width={90}
-            height={88}
+            src={brandUrl("logo-black.webp")}
+            width={160}
+            height={146}
+            loading="lazy"
+            decoding="async"
             alt="Sphere8 Construction Corp."
           />
         </a>

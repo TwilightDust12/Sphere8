@@ -23,6 +23,9 @@ try {
   await page.emulateMediaFeatures([{ name: "prefers-reduced-motion", value: "no-preference" }])
   await page.goto(base, { waitUntil: "networkidle0" })
   await page.waitForSelector(".cinema.is-animated")
+  await page.waitForSelector('canvas[data-ready="true"]')
+  assert.equal(await page.evaluate(() => performance.getEntriesByType("resource").filter(e => e.name.includes("/story/frames/")).length), 0, "opening should reuse the poster without fetching neighboring frames")
+  assert.equal(await page.evaluate(() => performance.getEntriesByType("resource").some(e => e.name.includes("/brand/logo-black.webp"))), false, "footer logo should wait until it approaches the viewport")
   assert.deepEqual(await page.$$eval("main > section", sections => sections.map(section => section.id)),
     ["home", "about", "team", "services", "process", "projects", "contact"])
   assert.equal(await page.evaluate(() => getComputedStyle(document.body).backgroundColor), "rgb(247, 245, 243)")
@@ -75,6 +78,8 @@ try {
   assert.equal(await page.$$eval(".tile", tiles => tiles.length), 12)
   await page.screenshot({ path: ".cache/verification/projects.png" })
   assert.equal(await page.$$eval(".project-orbit", cards => cards.length), 6)
+  await page.waitForFunction(() => [...document.querySelectorAll(".project-orbit img")].every(img => img.complete && img.naturalWidth > 0))
+  assert.equal(await page.$$eval(".project-orbit img", images => images.every(img => /-(320|480)\.webp$/.test(img.currentSrc))), true, "floating photographs should use thumbnail variants")
   const orbitBefore = await page.$eval(".project-orbit img", el => getComputedStyle(el).transform)
   await page.waitForFunction(before => getComputedStyle(document.querySelector(".project-orbit img")).transform !== before, {}, orbitBefore)
   await page.click(".photo-motion-toggle")
@@ -130,11 +135,13 @@ try {
     } else request.continue()
   })
   await failure.goto(base, { waitUntil: "networkidle0" })
+  await failure.waitForSelector('canvas[data-ready="true"]')
+  await failure.evaluate(() => scrollTo({ top: 1800, behavior: "instant" }))
   await pause(800)
   assert.ok(requests.size > 0)
   assert.ok([...requests.values()].every(count => count <= 2), "missing frames must have bounded retries")
   assert.equal(await failure.$eval(".story-poster", image => image.complete && image.naturalWidth > 0), true)
-  assert.equal(await failure.$eval("canvas", canvas => canvas.dataset.ready), undefined)
+  assert.equal(await failure.$eval("canvas", canvas => canvas.dataset.frame), "0", "missing frames should retain the already decoded opening poster")
   await failure.close()
   report.mediaFailure = "poster retained; frame retries bounded at two"
 

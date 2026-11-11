@@ -60,9 +60,9 @@ export default function Header() {
         <a className="brand-link" href="#home" aria-label="Sphere8 home">
           <img
             className="brand-mark"
-            src={brandUrl("mark-black.png")}
-            width={29}
-            height={36}
+            src={brandUrl("mark-black.webp")}
+            width={80}
+            height={93}
             alt=""
           />
           <Brand />
