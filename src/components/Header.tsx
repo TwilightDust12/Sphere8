@@ -43,7 +43,7 @@ export default function Header() {
       }
     }
     window.addEventListener("keydown", onKey)
-    const desktop = matchMedia("(min-width: 901px)")
+    const desktop = matchMedia("(min-width: 1025px)")
     const closeOnDesktop = () => {
       if (desktop.matches) setOpen(false)
     }
@@ -55,69 +55,71 @@ export default function Header() {
   }, [])
 
   return (
-    <header className="site-header">
-      <a className="brand-link" href="#home" aria-label="Sphere8 home">
-        <img
-          className="brand-mark"
-          src={brandUrl("mark-black.png")}
-          width={29}
-          height={36}
-          alt=""
-        />
-        <Brand />
-      </a>
-      <nav className="desktop-nav" aria-label="Main navigation">
-        {links.map(([label, href]) => (
-          <a key={href} href={href}>
-            {label}
-          </a>
-        ))}
-      </nav>
-      <a className="header-cta" href="#contact">
-        Start a project <Arrow diagonal />
-      </a>
-      <button
-        type="button"
-        ref={toggleRef}
-        className="menu-toggle"
-        aria-expanded={open}
-        aria-controls="mobile-navigation"
-        aria-label={open ? "Close menu" : "Open menu"}
-        onClick={() => setOpen(!open)}
-      >
-        <span
-          className={`menu-icon${open ? " is-open" : ""}`}
-          aria-hidden="true"
-        >
-          <i />
-          <i />
-        </span>
-      </button>
-      <nav
-        id="mobile-navigation"
-        ref={navRef}
-        className="mobile-nav"
-        aria-label="Mobile navigation"
-        hidden={!open}
-      >
-        {[...links, ["Start a project", "#contact"] as const].map(
-          ([label, href]) => (
-            <a
-              key={href}
-              href={href}
-              onClick={() => {
-                setOpen(false)
-                const destination = document.querySelector<HTMLElement>(href)
-                destination?.setAttribute("tabindex", "-1")
-                destination?.focus({ preventScroll: true })
-              }}
-            >
+    <div className="header-shell">
+      <header className="site-header">
+        <a className="brand-link" href="#home" aria-label="Sphere8 home">
+          <img
+            className="brand-mark"
+            src={brandUrl("mark-black.png")}
+            width={29}
+            height={36}
+            alt=""
+          />
+          <Brand />
+        </a>
+        <nav className="desktop-nav" aria-label="Main navigation">
+          {links.map(([label, href]) => (
+            <a key={href} href={href}>
               {label}
-              <Arrow diagonal />
             </a>
-          ),
-        )}
-      </nav>
-    </header>
+          ))}
+        </nav>
+        <a className="header-cta" href="#contact">
+          Start a project <Arrow diagonal />
+        </a>
+        <button
+          type="button"
+          ref={toggleRef}
+          className="menu-toggle"
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
+          aria-label={open ? "Close menu" : "Open menu"}
+          onClick={() => setOpen(!open)}
+        >
+          <span
+            className={`menu-icon${open ? " is-open" : ""}`}
+            aria-hidden="true"
+          >
+            <i />
+            <i />
+          </span>
+        </button>
+        <nav
+          id="mobile-navigation"
+          ref={navRef}
+          className="mobile-nav"
+          aria-label="Mobile navigation"
+          hidden={!open}
+        >
+          {[...links, ["Start a project", "#contact"] as const].map(
+            ([label, href]) => (
+              <a
+                key={href}
+                href={href}
+                onClick={() => {
+                  setOpen(false)
+                  const destination = document.querySelector<HTMLElement>(href)
+                  destination?.setAttribute("tabindex", "-1")
+                  destination?.focus({ preventScroll: true })
+                }}
+              >
+                {label}
+                <Arrow diagonal />
+              </a>
+            ),
+          )}
+        </nav>
+      </header>
+    </div>
   )
 }

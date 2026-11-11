@@ -9,7 +9,7 @@ export default function Services() {
   return (
     <section
       id="services"
-      className="services on-dark"
+      className="services"
       aria-labelledby="services-title"
     >
       <div className="wrap reveal-scope" ref={ref}>

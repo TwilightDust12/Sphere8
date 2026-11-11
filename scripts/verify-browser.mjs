@@ -23,6 +23,9 @@ try {
   await page.emulateMediaFeatures([{ name: "prefers-reduced-motion", value: "no-preference" }])
   await page.goto(base, { waitUntil: "networkidle0" })
   await page.waitForSelector(".cinema.is-animated")
+  assert.deepEqual(await page.$$eval("main > section", sections => sections.map(section => section.id)),
+    ["home", "about", "team", "services", "process", "projects", "contact"])
+  assert.equal(await page.evaluate(() => getComputedStyle(document.body).backgroundColor), "rgb(247, 245, 243)")
   await page.screenshot({ path: ".cache/verification/desktop.png" })
   const hash = () => page.$eval(".story-visual canvas", canvas => {
     const data = canvas.getContext("2d").getImageData(0, 0, canvas.width, canvas.height).data
@@ -70,6 +73,26 @@ try {
   await page.evaluate(() => document.getElementById("projects").scrollIntoView({ behavior: "instant" }))
   await pause(700)
   assert.equal(await page.$$eval(".tile", tiles => tiles.length), 12)
+  await page.screenshot({ path: ".cache/verification/projects.png" })
+  assert.equal(await page.$$eval(".project-orbit", cards => cards.length), 6)
+  const orbitBefore = await page.$eval(".project-orbit img", el => getComputedStyle(el).transform)
+  await page.waitForFunction(before => getComputedStyle(document.querySelector(".project-orbit img")).transform !== before, {}, orbitBefore)
+  await page.click(".photo-motion-toggle")
+  assert.equal(await page.$eval(".photo-motion-toggle", el => el.getAttribute("aria-pressed")), "true")
+  assert.equal(await page.$eval(".project-orbit img", el => getComputedStyle(el).animationName), "none")
+  assert.equal(await page.$eval(".tile", el => getComputedStyle(el).animationName), "none")
+  await page.click(".photo-motion-toggle")
+  assert.equal(await page.$eval(".project-orbit img", el => getComputedStyle(el).animationName), "photo-drift")
+  report.floatingPhotos = "six drifting photographs, pause and resume passed"
+  await page.evaluate(() => document.querySelector(".mosaic").scrollIntoView({ behavior: "instant" }))
+  await pause()
+  await page.screenshot({ path: ".cache/verification/project-cards.png" })
+  const motionBefore = await page.$eval(".tile", el => getComputedStyle(el).translate)
+  await page.evaluate(() => scrollBy({ top: 180, behavior: "instant" }))
+  await pause()
+  assert.notEqual(await page.$eval(".tile", el => getComputedStyle(el).translate), motionBefore)
+  assert.equal(await page.$eval(".tile-media", el => getComputedStyle(el).borderRadius), "16px")
+  report.projectMotion = "scroll-linked movement and rounded cards passed"
   await page.click(".show-all")
   assert.equal(await page.$$eval(".tile", tiles => tiles.length), 25)
   await page.click('.filters button[aria-label^="Interiors,"]')
@@ -80,6 +103,7 @@ try {
   assert.equal(await page.$eval("dialog", el => el.open), false)
   await page.evaluate(() => document.getElementById("contact").scrollIntoView({ behavior: "instant" }))
   await pause(700)
+  await page.screenshot({ path: ".cache/verification/contact.png" })
   await page.click('.inquiry button[type="submit"]')
   assert.equal(await page.evaluate(() => document.activeElement.id), "inq-name")
   assert.equal(await page.$$eval(".field-error", errors => errors.length), 4)
@@ -87,6 +111,8 @@ try {
 
   await page.emulateMediaFeatures([{ name: "prefers-reduced-motion", value: "reduce" }])
   await page.waitForSelector(".cinema.is-static")
+  assert.equal(await page.$eval(".tile", el => getComputedStyle(el).animationName), "none")
+  assert.equal(await page.$eval(".project-orbit img", el => getComputedStyle(el).animationName), "none")
   assert.equal(await page.$$eval(".static-chapters img", images => images.length), 3)
   await scroll(0)
   await page.screenshot({ path: ".cache/verification/reduced-motion.png" })
@@ -118,6 +144,8 @@ try {
   await saveData.evaluateOnNewDocument(() => Object.defineProperty(navigator, "connection", { value: { saveData: true, addEventListener() {}, removeEventListener() {} }, configurable: true }))
   await saveData.goto(base, { waitUntil: "networkidle0" })
   assert.equal(await saveData.$eval(".cinema", el => el.classList.contains("is-static")), true)
+  assert.equal(await saveData.$eval(".tile", el => getComputedStyle(el).animationName), "none")
+  assert.equal(await saveData.$eval(".project-orbit img", el => getComputedStyle(el).animationName), "none")
   await saveData.close()
   report.saveData = "static fallback passed"
   await page.goto(`${base}/style-tile.html`, { waitUntil: "networkidle0" })

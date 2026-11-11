@@ -129,7 +129,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="contact on-dark"
+      className="contact"
       aria-labelledby="contact-title"
     >
       <div className="wrap reveal-scope" ref={ref}>

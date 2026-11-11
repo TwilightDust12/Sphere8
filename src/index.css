@@ -20,24 +20,24 @@
 }
 
 @theme {
-  --color-canvas: #f3f0e9;
-  --color-paper: #faf8f3;
-  --color-ink: #242722;
-  --color-brand: #ce3027;
-  --color-brand-light: #f0584e;
-  --color-muted: #62665d;
-  --color-muted-on-ink: #b4b6ad;
-  --color-line: #d8d6cc;
+  --color-canvas: #f7f5f3;
+  --color-paper: #ffffff;
+  --color-ink: #0d0d0d;
+  --color-brand: #0d0d0d;
+  --color-brand-light: #0d0d0d;
+  --color-muted: #6e6a69;
+  --color-muted-on-ink: #6e6a69;
+  --color-line: #0d0d0d20;
   --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
   --font-mono: 'Geist Mono', ui-monospace, monospace;
 }
 
 :root {
   --pad: clamp(20px, 4.4vw, 64px);
   --header: 88px;
-  /* page gutter: matches the centred 1520px content column, so the header lines up with the content */
-  --gutter: max(var(--pad), calc((100vw - 1520px) / 2 + var(--pad)));
+  /* page gutter: matches the centred 1408px content column, so the header lines up with the content */
+  --gutter: max(var(--pad), calc((100vw - 1408px) / 2 + var(--pad)));
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
@@ -64,7 +64,7 @@ h1, h2, h3, p, ul, figure { margin: 0; }
 ::selection { background: var(--color-ink); color: var(--color-paper); }
 h1, h2, h3 { font-family: var(--font-display); }
 
-.wrap { max-width: 1520px; margin-inline: auto; padding-inline: var(--pad); }
+.wrap { max-width: 1408px; margin-inline: auto; padding-inline: var(--pad); }
 .mono { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
 .big { font-weight: 700; text-transform: uppercase; font-size: clamp(36px, 6vw, 96px); line-height: .94; letter-spacing: -.045em; }
 .big span { color: var(--color-brand); }
@@ -341,10 +341,6 @@ body:has(dialog.lightbox[open]) { overflow: hidden; }
 .footer-logo { height: 88px; width: auto; }
 .site-footer .footer-row > a { display: inline-flex; }
 
-/* Scroll-linked tile entrance: progressive enhancement, no layer on the whole section */
-@supports (animation-timeline: view()) {
-  .tile { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
-}
 
 
 /* Hover effects only on devices that really hover */

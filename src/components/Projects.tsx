@@ -76,6 +76,7 @@ export default function Projects() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const [moreOpen, setMoreOpen] = useState(false)
   const [showAll, setShowAll] = useState(false)
+  const [motionPaused, setMotionPaused] = useState(false)
   const [failedIds, setFailedIds] = useState<string[]>([])
   const markFailed = (id: string) =>
     setFailedIds((ids) => (ids.includes(id) ? ids : [...ids, id]))
@@ -97,22 +98,49 @@ export default function Projects() {
     <section
       id="projects"
       className="projects"
+      data-motion-paused={motionPaused}
       aria-labelledby="projects-title"
     >
       <div className="wrap reveal-scope" ref={ref}>
         <div className="section-kicker mono">
-          <span>01 / Selected work</span>
+          <span>04 / Selected work</span>
           <span>Ideas, made tangible.</span>
         </div>
-        <h2 id="projects-title" className="big reveal-item" style={stagger(0)}>
-          Different spaces.
-          <br />
-          <span>The same care.</span>
-        </h2>
-        <p className="projects-intro reveal-item" style={stagger(1)}>
-          Homes to grow into. Places to work. Spaces to gather. Explore our
-          construction, design and engineering work.
-        </p>
+        <div className="project-introduction">
+          <div className="project-constellation" aria-hidden="true">
+            {photos.filter((photo) => photo.role === "construction" && !photo.placeholder).slice(0, 6).map((photo) => (
+              <span className="project-orbit" key={photo.id}>
+                <img
+                  src={photoUrl(photo.id, true)}
+                  alt=""
+                  width={photo.width}
+                  height={photo.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+            ))}
+          </div>
+          <div className="project-introduction-copy">
+            <h2 id="projects-title" className="big reveal-item" style={stagger(0)}>
+              Different spaces.
+              <br />
+              <span>The same care.</span>
+            </h2>
+            <p className="projects-intro reveal-item" style={stagger(1)}>
+              Homes to grow into. Places to work. Spaces to gather. Explore our
+              construction, design and engineering work.
+            </p>
+          </div>
+          <button
+            type="button"
+            className="photo-motion-toggle"
+            aria-pressed={motionPaused}
+            onClick={() => setMotionPaused(!motionPaused)}
+          >
+            {motionPaused ? "Resume photo motion" : "Pause photo motion"}
+          </button>
+        </div>
 
         <div className="filter-bar reveal-item" style={stagger(2)}>
           <div className="filters" role="group" aria-label="Filter projects">

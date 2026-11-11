@@ -29,6 +29,8 @@ try {
     [360, 740],
     [390, 844],
     [430, 932],
+    [640, 800],
+    [767, 1024],
     [768, 1024],
   ]) {
     const page = await browser.newPage()
@@ -80,11 +82,17 @@ try {
       }
     })
     assert.equal(geometry.overflow, false)
-    assert.equal(geometry.header, 0)
+    assert.ok(geometry.header >= 8 && geometry.header <= 16)
     assert.ok(geometry.titleTop >= geometry.headerBottom)
     assert.ok(geometry.actionBottom <= geometry.skipTop)
     assert.ok(geometry.skipBottom <= height)
     assert.ok(geometry.menuWidth >= 44 && geometry.menuHeight >= 44)
+    assert.equal(await page.$eval(".site-header", header => {
+      const bounds = header.getBoundingClientRect()
+      return [...header.children].filter(el => getComputedStyle(el).display !== "none" && !el.classList.contains("mobile-nav"))
+        .every(el => { const r = el.getBoundingClientRect(); return r.left >= bounds.left && r.right <= bounds.right && r.top >= bounds.top && r.bottom <= bounds.bottom })
+    }), true, "header controls must fit inside the pill")
+    assert.equal(await page.evaluate(() => Boolean(document.elementFromPoint(innerWidth / 2, 2)?.closest(".header-shell"))), true, "header backing must cover scrolling content above the pill")
     assert.equal(
       await page.$eval(".cinema", (el) => el.classList.contains("is-static")),
       true,
@@ -98,6 +106,7 @@ try {
       true,
     )
     await page.click(".menu-toggle")
+    assert.equal(await page.$eval(".mobile-nav", el => el.getBoundingClientRect().bottom <= innerHeight), true, "open menu must fit the viewport")
     assert.equal(
       await page.evaluate(() => document.activeElement.getAttribute("href")),
       "#projects",
@@ -142,8 +151,17 @@ try {
     )
     assert.equal(
       await page.$eval(".site-header", (el) => el.getBoundingClientRect().top),
-      0,
+      geometry.header,
     )
+    assert.equal(await page.$eval(".tile", el => getComputedStyle(el).animationName), "none")
+    assert.equal(await page.$eval(".project-constellation", el => getComputedStyle(el).display), "none")
+    assert.equal(await page.$eval(".tile:nth-child(2)", el => getComputedStyle(el).paddingTop), "0px")
+    if (width <= 767) {
+      assert.equal(await page.$eval(".tile", el => Math.abs(el.getBoundingClientRect().width - el.parentElement.getBoundingClientRect().width) < 1), true, "phone gallery cards must fill their column")
+      for (const selector of [".inquiry", ".about-layout", ".expertise-row", ".steps"]) {
+        assert.equal(await page.$eval(selector, el => getComputedStyle(el).gridTemplateColumns.split(" ").length), 1, `${selector} must stack on phones`)
+      }
+    }
     await page.screenshot({
       captureBeyondViewport: false,
       path: `.cache/mobile/projects-${width}.png`,
@@ -183,7 +201,7 @@ try {
           ".site-header",
           (el) => el.getBoundingClientRect().top,
         ),
-        0,
+        geometry.header,
       )
       if (width === 390)
         await page.screenshot({
@@ -211,6 +229,25 @@ try {
     })
     await page.close()
   }
+  const headerPage = await browser.newPage()
+  await headerPage.setViewport({ width: 900, height: 300 })
+  await headerPage.goto(base, { waitUntil: "networkidle0" })
+  await headerPage.click(".menu-toggle")
+  for (const width of [900, 950, 1024]) {
+    await headerPage.setViewport({ width, height: 300 })
+    assert.equal(await headerPage.$eval(".menu-toggle", el => el.getAttribute("aria-expanded")), "true", "menu must stay open within the mobile navigation breakpoint")
+    assert.equal(await headerPage.$eval(".mobile-nav", el => el.getBoundingClientRect().bottom <= innerHeight), true, "landscape dropdown must stay inside the viewport")
+    assert.equal(await headerPage.$eval(".mobile-nav", el => getComputedStyle(el).overflowY), "auto")
+  }
+  await headerPage.$eval('.mobile-nav a[href="#contact"]', el => el.scrollIntoView({ block: "nearest" }))
+  await headerPage.click('.mobile-nav a[href="#contact"]')
+  assert.equal(await headerPage.$eval(".mobile-nav", el => el.hidden), true)
+  await headerPage.click(".menu-toggle")
+  await headerPage.setViewport({ width: 1025, height: 700 })
+  await headerPage.waitForFunction(() => document.querySelector(".mobile-nav").hidden)
+  assert.equal(await headerPage.$eval(".menu-toggle", el => el.getAttribute("aria-expanded")), "false")
+  await headerPage.close()
+  report.push({ headerBreakpoints: "900, 950, 1024, 1025 passed", landscapeDropdown: "contained and scrollable" })
   const page = await browser.newPage()
   const requests = []
   page.on("request", (request) => requests.push(request.url()))

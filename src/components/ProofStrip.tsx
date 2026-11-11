@@ -9,7 +9,7 @@ export default function ProofStrip() {
     <section id="about" className="about" aria-labelledby="about-title">
       <div className="wrap reveal-scope" ref={ref}>
         <div className="section-kicker mono">
-          <span>04 / Our story</span>
+          <span>01 / Our story</span>
           <span>Rooted in Lucena. Built on care.</span>
         </div>
         <div className="about-layout">

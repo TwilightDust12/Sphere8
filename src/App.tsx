@@ -18,11 +18,11 @@ export default function App() {
       <Header />
       <main id="main">
         <Hero />
-        <Projects />
-        <Services />
-        <Process />
         <ProofStrip />
         <Team />
+        <Services />
+        <Process />
+        <Projects />
         <Contact />
       </main>
       <Footer />
